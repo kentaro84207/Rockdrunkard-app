@@ -5,7 +5,7 @@
         <v-flex xs12 md4>
           <input type="text" placeholder="E-mail" v-model="email" />
           <input type="password" placeholder="Password" v-model="password" />
-          <div @click="signupWithEmailAndPassword">Register</div>
+          <div @click="signupWithEmailAndPassword">Register!</div>
         </v-flex>
       </v-layout>
     </v-container>
@@ -24,14 +24,13 @@ export default class EmailSignup extends Vue {
   password: string = ''
 
   signupWithEmailAndPassword() {
-    console.log(process.env.APIKEY)
-    // firebase
-    //   .auth()
-    //   .createUserWithEmailAndPassword(this.email, this.password)
-    //   .catch(error => {
-    //     alert(error.message)
-    //     console.log('error')
-    //   })
+    firebase
+      .auth()
+      .createUserWithEmailAndPassword(this.email, this.password)
+      .catch(error => {
+        alert(error.message)
+        console.log('error')
+      })
   }
 }
 </script>
