@@ -39,6 +39,7 @@ const config: NuxtConfiguration = {
   ** Plugins to load before mounting the App
   */
   plugins: [
+    { src: "~/plugins/auth.ts", ssr: false }
   ],
   /*
   ** Nuxt.js modules

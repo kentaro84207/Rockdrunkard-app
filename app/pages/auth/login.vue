@@ -5,7 +5,7 @@
         <v-flex xs12 md4>
           <input type="text" placeholder="E-mail" v-model="email" />
           <input type="password" placeholder="Password" v-model="password" />
-          <button class @click="signinWithEmailAndPassword">Sign in</button>
+          <button class @click="handleSignin">Sign in</button>
         </v-flex>
       </v-layout>
     </v-container>
@@ -24,11 +24,15 @@ export default class login extends Vue {
   email: string = ''
   password: string = ''
 
-  signinWithEmailAndPassword() {
+  handleSignin() {
     firebase
       .auth()
       .signInWithEmailAndPassword(this.email, this.password)
+      .then(user => {
+        console.log('login!', user)
+      })
       .catch(error => {
+        console.log('error!')
         alert(error.message)
       })
   }
