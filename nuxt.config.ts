@@ -1,7 +1,9 @@
+import NuxtConfiguration from '@nuxt/config'
 import colors from 'vuetify/es5/util/colors'
 
-export default {
+const config: NuxtConfiguration = {
   mode: 'spa',
+  srcDir: 'app/',
   /*
   ** Headers of the page
   */
@@ -15,7 +17,7 @@ export default {
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
-,
+      ,
       {
         rel: 'stylesheet',
         href:
@@ -70,11 +72,13 @@ export default {
   /*
   ** Build configuration
   */
-  build: {
-    /*
-    ** You can extend webpack config here
-    */
-    extend(config, ctx) {
-    }
-  }
+  // build: {
+  //   /*
+  //   ** You can extend webpack config here
+  //   */
+  //   extend(config, ctx) {
+  //   }
+  // }
 }
+
+export default config
