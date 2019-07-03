@@ -1,5 +1,6 @@
 import NuxtConfiguration from '@nuxt/config'
 import colors from 'vuetify/es5/util/colors'
+const envSet = require(`./env.js`);
 
 const config: NuxtConfiguration = {
   mode: 'spa',
@@ -38,6 +39,7 @@ const config: NuxtConfiguration = {
   ** Plugins to load before mounting the App
   */
   plugins: [
+    { src: '~/plugins/firebase.ts' }
   ],
   /*
   ** Nuxt.js modules
@@ -47,6 +49,7 @@ const config: NuxtConfiguration = {
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
     '@nuxtjs/pwa',
+    '@nuxtjs/dotenv',
   ],
   /*
   ** Axios module configuration
@@ -69,6 +72,10 @@ const config: NuxtConfiguration = {
       success: colors.green.accent3
     }
   },
+  router: {
+    middleware: 'authenticated'
+  },
+  env: envSet,
   /*
   ** Build configuration
   */
