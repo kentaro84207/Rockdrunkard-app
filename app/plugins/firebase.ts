@@ -10,8 +10,6 @@ const config = {
   messagingSenderId: process.env.MESSAGINGSENDERID
 }
 
-if (!firebase.apps.length) {
-  firebase.initializeApp(config)
-}
-
-export default firebase
+export default (!firebase.apps.length ? firebase.initializeApp(config) : firebase.app());
+export const GoogleAuthProvider = new firebase.auth.GoogleAuthProvider();
+export const firebaseAuth = firebase.auth();

@@ -39,7 +39,7 @@ const config: NuxtConfiguration = {
   ** Plugins to load before mounting the App
   */
   plugins: [
-    { src: "~/plugins/auth.ts", ssr: false }
+    { src: '~/plugins/firebase.ts' }, { src: '~/plugins/auth.ts' }
   ],
   /*
   ** Nuxt.js modules
@@ -71,6 +71,9 @@ const config: NuxtConfiguration = {
       error: colors.deepOrange.accent4,
       success: colors.green.accent3
     }
+  },
+  router: {
+    middleware: 'authenticated'
   },
   env: envSet,
   /*

@@ -3,9 +3,7 @@
     <v-container>
       <v-layout>
         <v-flex xs12 md4>
-          <input type="text" placeholder="E-mail" v-model="email" />
-          <input type="password" placeholder="Password" v-model="password" />
-          <button class @click="handleSignin">Sign in</button>
+          <div class @click="signInWithGoogle()">Google</div>
         </v-flex>
       </v-layout>
     </v-container>
@@ -14,7 +12,8 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
-import firebase from '~/plugins/firebase'
+import { firebaseAuth } from '~/plugins/firebase'
+import { User } from '@firebase/auth-types'
 
 @Component({
   layout: 'login',
@@ -24,17 +23,13 @@ export default class login extends Vue {
   email: string = ''
   password: string = ''
 
-  handleSignin() {
-    firebase
-      .auth()
-      .signInWithEmailAndPassword(this.email, this.password)
-      .then(user => {
-        console.log('login!', user)
-      })
-      .catch(error => {
-        console.log('error!')
-        alert(error.message)
-      })
+  async signInWithGoogle() {
+    try {
+      await this.$store.dispatch('auth/signInWithGoogle')
+      this.$router.replace('/')
+    } catch (error) {
+      console.log('Google Login error', error)
+    }
   }
 }
 </script>
