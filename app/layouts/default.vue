@@ -1,34 +1,16 @@
 <template>
-  <v-app dark>
+  <v-app>
     <nuxt />
     <TheNavigation />
   </v-app>
 </template>
 
 <script>
+import TheNavigation from '~/components/TheNavigation.vue'
+
 export default {
-  data() {
-    return {
-      clipped: false,
-      drawer: false,
-      fixed: false,
-      items: [
-        {
-          icon: 'apps',
-          title: 'Welcome',
-          to: '/'
-        },
-        {
-          icon: 'bubble_chart',
-          title: 'Inspire',
-          to: '/inspire'
-        }
-      ],
-      miniVariant: false,
-      right: true,
-      rightDrawer: false,
-      title: 'Vuetify.js'
-    }
+  components: {
+    TheNavigation
   }
 }
 </script>

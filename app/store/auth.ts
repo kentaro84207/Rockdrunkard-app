@@ -17,9 +17,7 @@ export const mutations: MutationTree<State> = {
   //   state.loading = loading;
   // },
   setUser(state: State, payload: User): void {
-    console.log("payload", payload)
     state.user = payload;
-    console.log("state.user", state.user)
   }
 };
 
@@ -42,9 +40,6 @@ export const actions: ActionTree<State, State> = {
       isAnonymous: payload.isAnonymous,
       uid: payload.uid
     };
-
-    console.log('authStateChange', user)
-
     commit('setUser', user);
     // commit('setLoading', false);
   },

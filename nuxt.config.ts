@@ -39,7 +39,8 @@ const config: NuxtConfiguration = {
   ** Plugins to load before mounting the App
   */
   plugins: [
-    { src: '~/plugins/firebase.ts' }
+    { src: '~/plugins/firebase.ts' },
+    { src: '~/plugins/auth.ts' }
   ],
   /*
   ** Nuxt.js modules
