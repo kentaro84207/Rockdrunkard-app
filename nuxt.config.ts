@@ -57,6 +57,7 @@ const config: NuxtConfiguration = {
   ** See https://axios.nuxtjs.org/options
   */
   axios: {
+    baseURL: process.env.DATABASEURL
   },
   /*
   ** vuetify module configuration
@@ -64,13 +65,21 @@ const config: NuxtConfiguration = {
   */
   vuetify: {
     theme: {
-      primary: colors.blue.darken2,
+      primary: colors.blue.lighten1,
       accent: colors.grey.darken3,
       secondary: colors.amber.darken3,
       info: colors.teal.lighten1,
       warning: colors.amber.base,
       error: colors.deepOrange.accent4,
-      success: colors.green.accent3
+      success: colors.green.accent3,
+      v0: colors.yellow.darken1,
+      v1: colors.red.darken1,
+      v2: colors.blue.darken1,
+      v3: colors.green.darken1,
+      v4: colors.orange.darken1,
+      v5: colors.brown.darken1,
+      v6: colors.grey.lighten1,
+      v7: colors.grey.darken4,
     }
   },
   router: {
