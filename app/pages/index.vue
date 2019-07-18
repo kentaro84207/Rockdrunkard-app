@@ -30,7 +30,7 @@
                 </v-layout>
                 <v-divider light></v-divider>
                 <v-card-actions class="pa-3">
-                  <div>完登日</div>
+                  <div class="test">完登日</div>
                   <div>2019/07/03</div>
                   <v-spacer></v-spacer>
                   <v-checkbox label="完登"></v-checkbox>
@@ -85,3 +85,7 @@ export default class Top extends Vue {
   }
 }
 </script>
+
+<style lang='scss' scoped >
+
+</style>

@@ -34,6 +34,7 @@ const config: NuxtConfiguration = {
   ** Global CSS
   */
   css: [
+    '~/assets/css/reset.css'
   ],
   /*
   ** Plugins to load before mounting the App
@@ -51,7 +52,13 @@ const config: NuxtConfiguration = {
     '@nuxtjs/axios',
     '@nuxtjs/pwa',
     '@nuxtjs/dotenv',
+    '@nuxtjs/style-resources',
   ],
+  styleResources: {
+    scss: [
+      '~/assets/scss/foundation/_variable.scss',
+    ]
+  },
   /*
   ** Axios module configuration
   ** See https://axios.nuxtjs.org/options
