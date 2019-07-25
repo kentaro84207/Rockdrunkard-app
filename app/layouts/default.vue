@@ -24,7 +24,7 @@ import TheNavigation from '~/components/TheNavigation.vue'
 export default class Posts extends Vue {
   private get user() {
     try {
-      return this.$store.state.auth.user
+      return this.$store.state.user.user
     } catch (error) {
       return false
     }

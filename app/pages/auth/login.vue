@@ -25,7 +25,7 @@ export default class login extends Vue {
 
   async signInWithGoogle() {
     try {
-      await this.$store.dispatch('auth/signInWithGoogle')
+      await this.$store.dispatch('user/signInWithGoogle')
       this.$router.replace('/')
     } catch (error) {
       console.log('Google Login error', error)

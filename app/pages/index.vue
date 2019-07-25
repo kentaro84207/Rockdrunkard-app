@@ -77,7 +77,7 @@ export default class Top extends Vue {
 
   private get user() {
     try {
-      return this.$store.state.auth.user.displayName
+      return this.$store.state.user.user.displayName
     } catch (error) {
       return false
     }
@@ -97,7 +97,7 @@ export default class Top extends Vue {
 
   async signOut() {
     try {
-      await this.$store.dispatch('auth/signOut')
+      await this.$store.dispatch('user/signOut')
       this.$router.replace('/')
     } catch (error) {
       console.log('Sign Out error', error)
