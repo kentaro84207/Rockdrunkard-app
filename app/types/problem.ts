@@ -3,6 +3,7 @@
 export interface Problem {
   difficulty: number;
   month: number;
+  pid: any;
   setted_by: string;
-  ascented_by: any;
+  redpoint_users: Array<string>;
 }

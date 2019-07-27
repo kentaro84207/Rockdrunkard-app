@@ -36,7 +36,7 @@ import { Problem } from '~/types/problem'
 
 @Component({})
 export default class ProblemCard extends Vue {
-  @Prop() problem!: Problem
+  @Prop() problem!: Problem[]
 
   difficulty: { [key: number]: string; } = {
     0: '〜7級',
