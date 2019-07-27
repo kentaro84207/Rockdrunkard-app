@@ -8,6 +8,7 @@
           パスワード<br>
           <input type="password" v-model="password" /><br>
           <div @click="signin()">ログイン</div>
+          <nuxt-link to="/auth/signup">Sign Up</nuxt-link>
         </v-flex>
       </v-layout>
     </v-container>
