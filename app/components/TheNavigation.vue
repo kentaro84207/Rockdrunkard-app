@@ -11,3 +11,12 @@
     </v-btn>
   </v-bottom-nav>
 </template>
+
+<script lang="ts">
+import { Component, Vue } from 'vue-property-decorator'
+
+@Component({})
+export default class navigation extends Vue {
+  bottomNav: string = 'List'
+}
+</script>
