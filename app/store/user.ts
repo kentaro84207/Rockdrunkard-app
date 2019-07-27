@@ -1,5 +1,6 @@
 import { User } from '~/types/user';
 import { MutationTree, GetterTree, ActionTree } from 'vuex';
+import firestore from '~/plugins/firestore';
 import { firebaseAuth, GoogleAuthProvider } from '~/plugins/firebase';
 
 interface State {
@@ -34,7 +35,7 @@ export const actions: ActionTree<State, State> = {
   authStateChange({ commit }, payload) {
     // commit('setLoading', true);
 
-    let user: User = {
+    const user: User = {
       ...payload.providerData[0],
       emailVerified: payload.emailVerified,
       isAnonymous: payload.isAnonymous,
@@ -42,6 +43,10 @@ export const actions: ActionTree<State, State> = {
     };
     commit('setUser', user);
     // commit('setLoading', false);
+  },
+
+  addSentProblem({ commit }, payload) {
+    console.log(payload)
   },
 
   async signInWithGoogle() {
