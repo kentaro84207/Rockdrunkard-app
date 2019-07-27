@@ -3,7 +3,11 @@
     <v-container>
       <v-layout>
         <v-flex xs12 md4>
-          <div class @click="signInWithGoogle()">Google</div>
+          メール<br>
+          <input type="text" v-model="email" /><br>
+          パスワード<br>
+          <input type="password" v-model="password" /><br>
+          <div @click="signin()">ログイン</div>
         </v-flex>
       </v-layout>
     </v-container>
@@ -23,13 +27,22 @@ export default class login extends Vue {
   email: string = ''
   password: string = ''
 
-  async signInWithGoogle() {
-    try {
-      await this.$store.dispatch('user/signInWithGoogle')
+  async signin() {
+    try{
+      await firebaseAuth.signInWithEmailAndPassword(this.email, this.password)
       this.$router.replace('/')
-    } catch (error) {
-      console.log('Google Login error', error)
+    } catch(error){
+      console.log('Login error', error)
     }
   }
+
+  // async signInWithGoogle() {
+  //   try {
+  //     await this.$store.dispatch('user/signInWithGoogle')
+  //     this.$router.replace('/')
+  //   } catch (error) {
+  //     console.log('Google Login error', error)
+  //   }
+  // }
 }
 </script>

@@ -49,9 +49,13 @@ export const actions: ActionTree<State, State> = {
     console.log(payload)
   },
 
-  async signInWithGoogle() {
-    await firebaseAuth.signInWithPopup(GoogleAuthProvider);
-  },
+  // async signInWithGoogle() {
+  //   await firebaseAuth.signInWithPopup(GoogleAuthProvider);
+  // },
+
+  // async signInWithEmailPassword() {
+  //   await firebaseAuth.signInWithPopup(GoogleAuthProvider);
+  // },
 
   async signOut({ commit }) {
     await firebaseAuth.signOut();
