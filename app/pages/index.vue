@@ -1,93 +1,64 @@
 <template>
-  <v-layout
-    column
-    justify-center
-    align-center
-  >
-    <v-flex
-      xs12
-      sm8
-      md6
-    >
-      <div class="text-xs-center">
-        <logo />
-        <vuetify-logo />
-      </div>
-      <v-card>
-        <v-card-title class="headline">
-          Welcome to the Vuetify + Nuxt.js template
-        </v-card-title>
-        <v-card-text>
-          <p>Vuetify is a progressive Material Design component framework for Vue.js. It was designed to empower developers to create amazing applications.</p>
-          <p>
-            For more information on Vuetify, check out the <a
-              href="https://vuetifyjs.com"
-              target="_blank"
-            >
-              documentation
-            </a>.
-          </p>
-          <p>
-            If you have questions, please join the official <a
-              href="https://chat.vuetifyjs.com/"
-              target="_blank"
-              title="chat"
-            >
-              discord
-            </a>.
-          </p>
-          <p>
-            Find a bug? Report it on the github <a
-              href="https://github.com/vuetifyjs/vuetify/issues"
-              target="_blank"
-              title="contribute"
-            >
-              issue board
-            </a>.
-          </p>
-          <p>Thank you for developing with Vuetify and I look forward to bringing more exciting features in the future.</p>
-          <div class="text-xs-right">
-            <em><small>&mdash; John Leider</small></em>
-          </div>
-          <hr class="my-3">
-          <a
-            href="https://nuxtjs.org/"
-            target="_blank"
-          >
-            Nuxt Documentation
-          </a>
-          <br>
-          <a
-            href="https://github.com/nuxt/nuxt.js"
-            target="_blank"
-          >
-            Nuxt GitHub
-          </a>
-        </v-card-text>
-        <v-card-actions>
-          <v-spacer />
-          <v-btn
-            color="primary"
-            flat
-            nuxt
-            to="/inspire"
-          >
-            Continue
-          </v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-flex>
-  </v-layout>
+  <v-card>
+    <v-container fluid grid-list-lg>
+      <v-layout row wrap>
+        <div>{{ user }}</div>
+        <div @click="signOut()">Sign Out</div>
+        <v-flex xs12 sm8 md6>
+          <ul>
+            <ProblemCard v-for="problem in problems" :problem="problem" :key="problem.pid" ></ProblemCard>
+          </ul>
+        </v-flex>
+      </v-layout>
+    </v-container>
+  </v-card>
 </template>
 
-<script>
-import Logo from '~/components/Logo.vue'
-import VuetifyLogo from '~/components/VuetifyLogo.vue'
+<script lang="ts">
+import { Component, Vue } from 'vue-property-decorator'
+import firestore from '~/plugins/firestore'
+import ProblemCard from '~/components/ProblemCard.vue'
 
-export default {
+@Component({
   components: {
-    Logo,
-    VuetifyLogo
+    ProblemCard,
+  },
+})
+export default class Top extends Vue {
+  async created() {
+    await this.$store.dispatch('problem/getProblems')
+  }
+
+  private get user() {
+    try {
+      return this.$store.state.user.user.displayName
+    } catch (error) {
+      return false
+    }
+  }
+
+  private get problems() {
+    try {
+      return this.$store.state.problem.problems
+    } catch (error) {
+      return false
+    }
+  }
+
+  // async problems() {
+  //   await this.$store.dispatch('problem/getProblems')
+  // }
+
+  async signOut() {
+    try {
+      await this.$store.dispatch('user/signOut')
+      this.$router.replace('/')
+    } catch (error) {
+      console.log('Sign Out error', error)
+    }
   }
 }
 </script>
+
+<style lang='scss' scoped >
+</style>

@@ -34,12 +34,14 @@ const config: NuxtConfiguration = {
   ** Global CSS
   */
   css: [
+    '~/assets/css/reset.css'
   ],
   /*
   ** Plugins to load before mounting the App
   */
   plugins: [
-    { src: '~/plugins/firebase.ts' }
+    { src: '~/plugins/firebase.ts' },
+    { src: '~/plugins/auth.ts' }
   ],
   /*
   ** Nuxt.js modules
@@ -50,12 +52,19 @@ const config: NuxtConfiguration = {
     '@nuxtjs/axios',
     '@nuxtjs/pwa',
     '@nuxtjs/dotenv',
+    '@nuxtjs/style-resources',
   ],
+  styleResources: {
+    scss: [
+      '~/assets/scss/foundation/_variable.scss',
+    ]
+  },
   /*
   ** Axios module configuration
   ** See https://axios.nuxtjs.org/options
   */
   axios: {
+    baseURL: process.env.DATABASEURL
   },
   /*
   ** vuetify module configuration
@@ -63,13 +72,21 @@ const config: NuxtConfiguration = {
   */
   vuetify: {
     theme: {
-      primary: colors.blue.darken2,
+      primary: colors.blue.lighten1,
       accent: colors.grey.darken3,
       secondary: colors.amber.darken3,
       info: colors.teal.lighten1,
       warning: colors.amber.base,
       error: colors.deepOrange.accent4,
-      success: colors.green.accent3
+      success: colors.green.accent3,
+      r0: colors.blue.lighten3,
+      r1: colors.yellow.lighten1,
+      r2: colors.orange.lighten2,
+      r3: colors.red.darken1,
+      r4: colors.green.darken3,
+      r5: colors.grey.lighten5,
+      r6: colors.grey.lighten1,
+      r7: colors.grey.darken4,
     }
   },
   router: {
