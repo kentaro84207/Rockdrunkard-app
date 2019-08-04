@@ -5,7 +5,7 @@
       <td class="text-xs-left">{{ props.item.year }}</td>
       <td class="text-xs-left">{{ props.item.month }}</td>
       <td class="text-xs-left">{{ props.item.setted_by }}</td>
-      <td class="text-xs-left">{{ props.item.difficulty }}</td>
+      <td class="text-xs-left">{{ difficulty[props.item.difficulty] }}</td>
     </template>
   </v-data-table>
 </template>
@@ -25,21 +25,12 @@ export default class Table extends Vue {
     { text: 'セッター', value: 'setted_by', align: 'left' },
     { text: '難易度', value: 'difficulty', align: 'left' }
   ]
+
+  private get difficulty() {
+    return this.$store.state.problem.difficulty
+  }
 }
 </script>
 
 <style lang='scss' scoped >
-// table.v-table {
-//   thead {
-//     th {
-//       padding: 24px;
-//     }
-//   }
-
-//   tbody {
-//     td {
-//       padding: 24px;
-//     }
-//   }
-// }
 </style>
