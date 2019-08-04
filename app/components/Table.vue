@@ -1,0 +1,45 @@
+<template>
+  <v-data-table :headers="headers" :items="problems" class="elevation-1">
+    <template v-slot:items="props">
+      <td class="text-xs-left">{{ props.item.pid }}</td>
+      <td class="text-xs-left">{{ props.item.year }}</td>
+      <td class="text-xs-left">{{ props.item.month }}</td>
+      <td class="text-xs-left">{{ props.item.setted_by }}</td>
+      <td class="text-xs-left">{{ props.item.difficulty }}</td>
+    </template>
+  </v-data-table>
+</template>
+
+<script lang="ts">
+import { Component, Prop, Vue } from 'vue-property-decorator'
+import { Problem } from '~/types/problem'
+
+@Component({})
+export default class Table extends Vue {
+  @Prop() problems!: Problem[]
+
+  headers: object[] = [
+    { text: 'ID', value: 'pid', align: 'left' },
+    { text: '年', value: 'year', align: 'left' },
+    { text: '月', value: 'month', align: 'left' },
+    { text: 'セッター', value: 'setted_by', align: 'left' },
+    { text: '難易度', value: 'difficulty', align: 'left' }
+  ]
+}
+</script>
+
+<style lang='scss' scoped >
+// table.v-table {
+//   thead {
+//     th {
+//       padding: 24px;
+//     }
+//   }
+
+//   tbody {
+//     td {
+//       padding: 24px;
+//     }
+//   }
+// }
+</style>
