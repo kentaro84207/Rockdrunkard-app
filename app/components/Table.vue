@@ -1,7 +1,7 @@
 <template>
   <v-data-table :headers="headers" :items="problems" class="elevation-1">
     <template v-slot:items="props">
-      <td class="text-xs-left">{{ props.item.pid }}</td>
+      <td class="text-xs-left">{{ props.item.num }}</td>
       <td class="text-xs-left">{{ props.item.year }}</td>
       <td class="text-xs-left">{{ props.item.month }}</td>
       <td class="text-xs-left">{{ props.item.setted_by }}</td>
@@ -19,7 +19,7 @@ export default class Table extends Vue {
   @Prop() problems!: Problem[]
 
   headers: object[] = [
-    { text: 'ID', value: 'pid', align: 'left' },
+    { text: '番号', value: 'num', align: 'left' },
     { text: '年', value: 'year', align: 'left' },
     { text: '月', value: 'month', align: 'left' },
     { text: 'セッター', value: 'setted_by', align: 'left' },

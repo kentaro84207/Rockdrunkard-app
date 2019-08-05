@@ -8,7 +8,7 @@
           :items="years"
           v-model="year"
           label="年"
-          @change="setAdminProblems()"
+          @change="fetchAdminProblems()"
         ></v-select>
       </v-flex>
       <v-flex xs12 md3>
@@ -18,7 +18,7 @@
           :items="months"
           v-model="month"
           label="月"
-          @change="setAdminProblems()"
+          @change="fetchAdminProblems()"
         ></v-select>
       </v-flex>
     </v-layout>
@@ -41,6 +41,7 @@ import Table from '~/components/Table.vue'
   },
 })
 export default class Admin extends Vue {
+  // TODO: 日付関連共通化
   today = new Date()
   year: number = this.today.getFullYear()
   month: number = this.today.getMonth()
@@ -62,15 +63,15 @@ export default class Admin extends Vue {
   }
 
   created(){
-    this.setAdminProblems()
+    this.fetchAdminProblems()
   }
 
-  setAdminProblems() {
+  fetchAdminProblems() {
     const selectedDate = {
       year: this.year,
       month: this.month
     }
-    this.$store.dispatch('admin/getProblems', selectedDate)
+    this.$store.dispatch('admin/fetchProblems', selectedDate)
   }
 
   range(from, to) {

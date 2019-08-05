@@ -1,14 +1,41 @@
 <template>
   <v-container>
     <v-layout>
-      <v-flex xs12 md4>
+      <v-flex xs12 md3 mr-3>
+        <v-text-field
+        v-model="num"
+        label="課題番号"
+        ></v-text-field>
+      </v-flex>
+      <v-flex xs12 md3 mr-3>
+        <v-text-field
+        v-model="year"
+        label="年"
+        ></v-text-field>
+      </v-flex>
+      <v-flex xs12 md3 mr-3>
+        <v-select
+          :items="months"
+          v-model="month"
+          label="月"
+        ></v-select>
+      </v-flex>
+      <v-flex xs12 md3 mr-3>
         <v-select
           item-text="label"
           item-value="value"
           :items="difficulties"
-          v-model="problem.difficulty"
-          label="グレード"
+          v-model="difficulty"
+          label="難易度"
         ></v-select>
+      </v-flex>
+      <v-flex xs12 md3 mr-3>
+        <v-text-field
+        v-model="setted_by"
+        label="セッター"
+        ></v-text-field>
+      </v-flex>
+      <v-flex xs12 md4>
         <div @click="addProblem()">ADD</div>
       </v-flex>
     </v-layout>
@@ -36,16 +63,30 @@ export default class AdminProblems extends Vue {
     { label: "初段以上", value: 7 },
   ]
 
-  problem: Problem = {
-    difficulty: 0,
-    month: 8,
-    pid: 9999,
-    setted_by: "Sharma",
-    redpoint_users: null,
-  }
+  // TODO: 日付関連共通化
+  num: number = null
+  difficulty: number = null
+  today = new Date()
+  year: number = this.today.getFullYear()
+  month: number = this.today.getMonth()
+  months: number[] = [...Array(12).keys()].map(i => ++i)
+  setted_by:string = null
+
+  // temp
+  pid:number = this.today.getMilliseconds()
 
   addProblem() {
-    firestore.collection('problems').add(this.problem);
+    const problem: Problem = {
+      num: Number(this.num),
+      difficulty: this.difficulty,
+      year: this.year,
+      month: this.month,
+      pid: this.pid,
+      setted_by: this.setted_by,
+      redpoint_users: null,
+    }
+    firestore.collection('problems').add(problem)
+    this.$router.replace('/admin/')
   }
 }
 </script>

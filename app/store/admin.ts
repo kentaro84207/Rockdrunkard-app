@@ -18,7 +18,7 @@ export const mutations: MutationTree<State> = {
 };
 
 export const actions: ActionTree<State, State> = {
-  async getProblems({ commit }, payload) {
+  async fetchProblems({ commit }, payload) {
     const problemsSnapshot: QuerySnapshot = await firestore
       .collection('problems').where("year", "==", payload.year).where("month", "==", payload.month)
       .get();

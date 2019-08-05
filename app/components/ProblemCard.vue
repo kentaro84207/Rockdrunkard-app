@@ -5,7 +5,7 @@
         <v-flex xs7>
           <v-card-title primary-title class="pl-3 py-2">
             <div>
-              <div class="headline">No.{{ String(problem.pid).slice(-2) }}</div>
+              <div class="headline">No.{{ problem.num }}</div>
               <div>セッター：{{ problem.setted_by }}</div>
             </div>
           </v-card-title>
