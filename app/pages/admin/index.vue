@@ -22,9 +22,11 @@
         ></v-select>
       </v-flex>
     </v-layout>
-    <v-container pl-0>
-      <Table :problems="problems" ></Table>
-    </v-container>
+    <v-layout pl-0>
+      <v-flex xs12 >
+        <Table :problems="problems" ></Table>
+      </v-flex>
+    </v-layout>
   </v-container>
 </template>
 

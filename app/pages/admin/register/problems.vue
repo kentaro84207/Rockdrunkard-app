@@ -2,10 +2,11 @@
   <v-container>
     <v-layout>
       <v-flex xs12 md3 mr-3>
-        <v-text-field
-        v-model="num"
-        label="課題番号"
-        ></v-text-field>
+        <v-select
+          :items="nums"
+          v-model="num"
+          label="課題番号"
+        ></v-select>
       </v-flex>
       <v-flex xs12 md3 mr-3>
         <v-text-field
@@ -36,7 +37,7 @@
         ></v-text-field>
       </v-flex>
       <v-flex xs12 md4>
-        <div @click="addProblem()">ADD</div>
+        <div class="cursor" @click="addProblem()">ADD</div>
       </v-flex>
     </v-layout>
   </v-container>
@@ -63,17 +64,16 @@ export default class AdminProblems extends Vue {
     { label: "初段以上", value: 7 },
   ]
 
-  // TODO: 日付関連共通化
   num: number = null
+  nums: number[] = [...Array(100).keys()].map(i => ++i)
   difficulty: number = null
+  // TODO: 日付関連共通化
   today = new Date()
   year: number = this.today.getFullYear()
   month: number = this.today.getMonth()
   months: number[] = [...Array(12).keys()].map(i => ++i)
   setted_by:string = null
-
-  // temp
-  pid:number = this.today.getMilliseconds()
+  pid:number = Date.now()
 
   addProblem() {
     const problem: Problem = {
