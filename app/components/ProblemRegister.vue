@@ -1,6 +1,6 @@
 <template>
-  <v-container>
-    <v-layout>
+  <v-card>
+    <v-layout pa-5>
       <v-flex xs12 md3 mr-3>
         <v-select
           :items="nums"
@@ -36,23 +36,27 @@
         label="セッター"
         ></v-text-field>
       </v-flex>
-      <v-flex xs12 md4>
-        <div class="cursor" @click="addProblem()">ADD</div>
-      </v-flex>
     </v-layout>
-  </v-container>
+    <v-layout justify-center>
+      <v-btn class="cursor" @click="closeDialog()">キャンセル</v-btn>
+      <v-btn class="cursor" color="primary" @click="addProblem()">追加</v-btn>
+    </v-layout>
+  </v-card>
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator'
+import { Component, Vue, Emit } from 'vue-property-decorator'
 import { Problem } from '~/types/problem'
 import firestore from '~/plugins/firestore'
 
 @Component({
-  layout: 'admin',
   components: {}
 })
-export default class AdminProblems extends Vue {
+export default class ProblemRegister extends Vue {
+  // dialog
+  @Emit()
+  public clicked(){}
+
   difficulties: object[] = [
     { label: "7級以下", value: 0 },
     { label: "6級", value: 1 },
@@ -75,6 +79,11 @@ export default class AdminProblems extends Vue {
   setted_by:string = null
   pid:number = Date.now()
 
+
+  public closeDialog(){
+    this.clicked()
+  }
+
   addProblem() {
     const problem: Problem = {
       num: Number(this.num),
@@ -86,7 +95,11 @@ export default class AdminProblems extends Vue {
       redpoint_users: null,
     }
     firestore.collection('problems').add(problem)
-    this.$router.replace('/admin/')
+    this.clicked()
+    // TODO: 仮でリロードさせている。修正。
+    setTimeout(() => {
+      location.reload()
+    }, 1000);
   }
 }
 </script>
