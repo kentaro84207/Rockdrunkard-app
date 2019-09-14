@@ -28,11 +28,11 @@
       </v-flex>
     </v-layout>
     <v-layout mt-3 justify-center>
-      <v-dialog v-model="dialog" max-width="800px">
+      <v-dialog v-model="dialog" persistent max-width="800px">
         <template v-slot:activator="{ on }">
-          <v-btn color="primary" v-on="on">＋ 課題追加</v-btn>
+          <v-btn color="primary" v-on="on" @click="openDialog()">＋ 課題追加</v-btn>
         </template>
-        <ProblemRegisterDialog @clicked="closeDialog"></ProblemRegisterDialog>
+        <ProblemRegisterDialog></ProblemRegisterDialog>
       </v-dialog>
     </v-layout>
   </v-container>
@@ -53,13 +53,11 @@ import ProblemRegisterDialog from '~/components/ProblemRegisterDialog.vue'
   },
 })
 export default class Admin extends Vue {
-  // dialog
-  dialog = false
 
   // TODO: 日付関連共通化
   today = new Date()
   year: number = this.today.getFullYear()
-  month: number = this.today.getMonth()
+  month: number = this.today.getMonth() + 1
   months: number[] = [...Array(12).keys()].map(i => ++i)
 
   private get years() {
@@ -77,15 +75,26 @@ export default class Admin extends Vue {
     }
   }
 
-  closeDialog() {
-    this.dialog = false
+  private get dialog() {
+    return this.$store.state.admin.dialog
   }
 
   created(){
+    this.changeDate()
     this.fetchAdminProblems()
   }
 
+  changeDate() {
+    this.$store.dispatch('admin/changeYear', this.year)
+    this.$store.dispatch('admin/changeMonth', this.month)
+  }
+
+  openDialog() {
+    this.$store.dispatch('admin/changeDialogState', 'open')
+  }
+
   fetchAdminProblems() {
+    this.changeDate()
     const selectedDate = {
       year: this.year,
       month: this.month
