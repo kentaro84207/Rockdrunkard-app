@@ -30,5 +30,8 @@
       "@nuxt/types",
       "vuetify"
     ]
-  }
+  },
+  "exclude": [
+    "node_modules"
+  ]
 }
