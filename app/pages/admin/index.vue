@@ -64,7 +64,7 @@ export default class Admin extends Vue {
     const RELEASE_YEAR : number = 2019
     const now   = this.today
     const year = now.getFullYear()
-    return this.range(RELEASE_YEAR, year)
+    return this.range(RELEASE_YEAR, year + 1)
   }
 
   private get problems() {
@@ -90,6 +90,7 @@ export default class Admin extends Vue {
   }
 
   openDialog() {
+    this.$store.dispatch('admin/changeEditedPid', -1)
     this.$store.dispatch('admin/changeDialogState', 'open')
   }
 

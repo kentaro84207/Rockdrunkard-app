@@ -35,6 +35,14 @@ export default class Table extends Vue {
 
   pageSetting: object = { rowsPerPage: -1 }
 
+  private get year() {
+    return this.$store.state.admin.setYear
+  }
+
+  private get month() {
+    return this.$store.state.admin.setMonth
+  }
+
   private get difficulty() {
     return this.$store.state.problem.difficulty
   }
@@ -52,10 +60,9 @@ export default class Table extends Vue {
         .collection('problems')
         .doc(_deleteNum)
         .delete()
-      // TODO: selectDate修正。
       const selectedDate = {
-        year: 2019,
-        month: 9
+        year: this.year,
+        month: this.month
       }
       this.$store.dispatch('admin/fetchProblems', selectedDate)
     }

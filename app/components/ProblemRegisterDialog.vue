@@ -68,12 +68,12 @@ export default class ProblemRegisterDialog extends Vue {
     return this.$store.state.admin.setMonth
   }
 
-  private get editedIndex() {
-    return this.$store.state.admin.editedIndex
+  private get editedPid() {
+    return this.$store.state.admin.editedPid
   }
 
   private get formTitle() {
-    return this.editedIndex === -1 ? '課題を追加' : '課題を編集'
+    return this.editedPid === -1 ? '課題を追加' : '課題を編集'
   }
 
   closeDialog() {
@@ -96,7 +96,7 @@ export default class ProblemRegisterDialog extends Vue {
       .doc(_id)
       .set(problem)
     this.closeDialog()
-    // TODO: selectDate修正。
+    
     const selectedDate = {
       year: this.year,
       month: this.month

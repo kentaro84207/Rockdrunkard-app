@@ -57,11 +57,6 @@ export default class AdminLayout extends Vue {
       to: '/admin/'
     },
     {
-      icon: 'add',
-      title: '課題追加',
-      to: '/admin/register/problems'
-    },
-    {
       icon: 'image',
       title: 'TOP画像追加',
       to: '/admin/register/image'
