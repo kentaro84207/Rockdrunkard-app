@@ -12,7 +12,7 @@ interface State {
   problems: Problem[]
   dialog: boolean
   editedPid: number
-  editedProblem: Problem
+  editingProblem: Problem
   setYear: number
   setMonth: number
 }
@@ -21,7 +21,15 @@ export const state = (): State => ({
   problems: [],
   dialog: false,
   editedPid: -1,
-  editedProblem: null,
+  editingProblem: {
+    num: null,
+    difficulty: null,
+    year: null,
+    month: null,
+    pid: null,
+    setted_by: null,
+    redpoint_users: null
+  },
   setYear: null,
   setMonth: null
 })
@@ -36,8 +44,8 @@ export const mutations: MutationTree<State> = {
   setMonth(state: State, month: number): void {
     state.setMonth = month
   },
-  editedProblem(state: State, problem: Problem): void {
-    state.editedProblem = problem
+  editingProblem(state: State, problem: Problem): void {
+    state.editingProblem = problem
   },
   changeDialogState(state: State): void {
     state.dialog = !state.dialog
@@ -63,18 +71,8 @@ export const actions: ActionTree<State, State> = {
     commit('setProblems', problems)
   },
 
-  async editedProblem({ commit }, payload) {
-    const problemsSnapshot: QuerySnapshot = await firestore
-      .collection('problems')
-      .where('pid', '==', payload)
-      .get()
-    const problems = []
-
-    problemsSnapshot.forEach(queryDocumentSnapshot =>
-      problems.push(queryDocumentSnapshot.data())
-    )
-
-    commit('editedProblem', problems[0])
+  editingProblem({ commit }, payload) {
+    commit('editingProblem', payload)
   },
 
   changeYear({ commit }, payload) {

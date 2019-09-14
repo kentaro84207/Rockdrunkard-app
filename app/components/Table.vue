@@ -49,6 +49,7 @@ export default class Table extends Vue {
 
   editItem(item) {
     const _pid = item.pid
+    this.$store.dispatch('admin/editingProblem', item)
     this.$store.dispatch('admin/changeEditedPid', _pid)
     this.$store.dispatch('admin/changeDialogState', 'open')
   }
