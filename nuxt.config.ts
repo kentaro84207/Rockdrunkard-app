@@ -1,8 +1,8 @@
-import NuxtConfiguration from '@nuxt/config'
+import { Configuration } from '@nuxt/types'
 import colors from 'vuetify/es5/util/colors'
 const envSet = require(`./env.js`);
 
-const config: NuxtConfiguration = {
+const config: Configuration = {
   mode: 'spa',
   srcDir: 'app/',
   /*
@@ -47,6 +47,12 @@ const config: NuxtConfiguration = {
   /*
   ** Nuxt.js modules
   */
+  buildModules: [
+    ['@nuxt/typescript-build', {
+      typeCheck: true,
+      ignoreNotFoundWarnings: true
+    }]
+  ],
   modules: [
     '@nuxtjs/vuetify',
     // Doc: https://axios.nuxtjs.org/usage
@@ -54,6 +60,9 @@ const config: NuxtConfiguration = {
     '@nuxtjs/pwa',
     '@nuxtjs/dotenv',
     '@nuxtjs/style-resources',
+  ],
+  extends: [
+    '@nuxtjs/eslint-config-typescript'
   ],
   styleResources: {
     scss: [
