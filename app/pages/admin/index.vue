@@ -27,6 +27,14 @@
         <Table :problems="problems" ></Table>
       </v-flex>
     </v-layout>
+    <v-layout mt-3 justify-center>
+      <v-dialog v-model="dialog" max-width="800px">
+        <template v-slot:activator="{ on }">
+          <v-btn color="primary" v-on="on">＋ 課題追加</v-btn>
+        </template>
+        <ProblemRegister @clicked="closeDialog"></ProblemRegister>
+      </v-dialog>
+    </v-layout>
   </v-container>
 </template>
 
@@ -35,14 +43,19 @@ import { Component, Vue, Watch } from 'vue-property-decorator'
 import { Problem } from '~/types/problem'
 import firestore from '~/plugins/firestore'
 import Table from '~/components/Table.vue'
+import ProblemRegister from '~/components/ProblemRegister.vue'
 
 @Component({
   layout: 'admin',
   components: {
     Table,
+    ProblemRegister,
   },
 })
 export default class Admin extends Vue {
+  // dialog
+  dialog = false
+
   // TODO: 日付関連共通化
   today = new Date()
   year: number = this.today.getFullYear()
@@ -62,6 +75,10 @@ export default class Admin extends Vue {
     } catch (error) {
       return false
     }
+  }
+
+  closeDialog() {
+    this.dialog = false
   }
 
   created(){

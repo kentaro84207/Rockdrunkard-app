@@ -1,6 +1,7 @@
 import { Configuration } from '@nuxt/types'
 import colors from 'vuetify/es5/util/colors'
-const envSet = require(`./env.js`);
+require('dotenv').config()
+const { APIKEY, AUTHDOMAIN, DATABASEURL, PROJECTID, STORAGEBUCKET, MESSAGINGSENDERID } = process.env
 
 const config: Configuration = {
   mode: 'spa',
@@ -102,7 +103,15 @@ const config: Configuration = {
   router: {
     middleware: 'authenticated'
   },
-  env: envSet,
+  env: {
+    APIKEY,
+    AUTHDOMAIN,
+    DATABASEURL,
+    PROJECTID,
+    STORAGEBUCKET,
+    MESSAGINGSENDERID,
+  }
+  // env: envSet,
   /*
   ** Build configuration
   */
