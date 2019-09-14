@@ -52,7 +52,7 @@ import firestore from '~/plugins/firestore'
 @Component({
   components: {}
 })
-export default class ProblemRegister extends Vue {
+export default class ProblemRegisterDialog extends Vue {
   // dialog
   @Emit()
   public clicked(){}

@@ -32,7 +32,7 @@
         <template v-slot:activator="{ on }">
           <v-btn color="primary" v-on="on">＋ 課題追加</v-btn>
         </template>
-        <ProblemRegister @clicked="closeDialog"></ProblemRegister>
+        <ProblemRegisterDialog @clicked="closeDialog"></ProblemRegisterDialog>
       </v-dialog>
     </v-layout>
   </v-container>
@@ -43,13 +43,13 @@ import { Component, Vue, Watch } from 'vue-property-decorator'
 import { Problem } from '~/types/problem'
 import firestore from '~/plugins/firestore'
 import Table from '~/components/Table.vue'
-import ProblemRegister from '~/components/ProblemRegister.vue'
+import ProblemRegisterDialog from '~/components/ProblemRegisterDialog.vue'
 
 @Component({
   layout: 'admin',
   components: {
     Table,
-    ProblemRegister,
+    ProblemRegisterDialog,
   },
 })
 export default class Admin extends Vue {
