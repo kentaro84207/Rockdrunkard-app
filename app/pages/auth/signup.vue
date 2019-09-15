@@ -17,7 +17,7 @@ import { Component, Vue } from 'vue-property-decorator'
 import { firebaseAuth } from '~/plugins/firebase'
 
 @Component({
-  layout: 'login'
+  layout: 'auth'
 })
 export default class Signup extends Vue {
   email: string = ''
