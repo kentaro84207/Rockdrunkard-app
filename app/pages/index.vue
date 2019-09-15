@@ -6,7 +6,7 @@
         <div @click="signOut()">Sign Out</div>
         <v-flex xs12 sm8 md6>
           <ul>
-            <ProblemCard v-for="problem in problems" :problem="problem" :key="problem.pid" ></ProblemCard>
+            <ProblemCard v-for="problem in problems" :problem="problem" :key="problem.pid"></ProblemCard>
           </ul>
         </v-flex>
       </v-layout>
@@ -21,12 +21,19 @@ import ProblemCard from '~/components/ProblemCard.vue'
 
 @Component({
   components: {
-    ProblemCard,
-  },
+    ProblemCard
+  }
 })
 export default class Top extends Vue {
   async created() {
-    await this.$store.dispatch('problem/getProblems')
+    const today = new Date()
+    const year: number = today.getFullYear()
+    const month: number = today.getMonth() + 1
+    const date: object = {
+      year: year,
+      month: month
+    }
+    await this.$store.dispatch('problem/getProblems', date)
   }
 
   private get user() {
@@ -44,6 +51,12 @@ export default class Top extends Vue {
       return false
     }
   }
+
+  // private get sortedProblemsByNum() {
+  //   return this.problems.sort((a, b) => {
+  //     return a.num < b.num ? -1 : a.num > b.num ? 1 : 0
+  //   })
+  // }
 
   // async problems() {
   //   await this.$store.dispatch('problem/getProblems')
