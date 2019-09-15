@@ -8,7 +8,19 @@
     <template v-slot:items="props">
       <td class="text-xs-left">{{ props.item.num }}</td>
       <td class="text-xs-left">{{ props.item.setted_by }}</td>
-      <td class="text-xs-left">{{ difficulty[props.item.difficulty] }}</td>
+      <td class="text-xs-left">
+        <v-layout>
+          <v-flex>
+            <v-sheet
+              :width="15"
+              :height="15"
+              :elevation="1"
+              :color="difficultyColor[props.item.difficulty]"
+            ></v-sheet>
+          </v-flex>
+          <v-flex>{{ difficulty[props.item.difficulty] }}</v-flex>
+        </v-layout>
+      </td>
       <td class="justify-center layout px-0">
         <v-icon small class="mr-2" @click="editItem(props.item)">edit</v-icon>
         <v-icon small @click="deleteItem(props.item)">delete</v-icon>
@@ -45,6 +57,10 @@ export default class Table extends Vue {
 
   private get difficulty() {
     return this.$store.state.problem.difficulty
+  }
+
+  private get difficultyColor() {
+    return this.$store.state.problem.difficultyColor
   }
 
   editItem(item) {
