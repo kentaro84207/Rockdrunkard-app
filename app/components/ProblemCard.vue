@@ -5,7 +5,7 @@
         <v-flex xs7>
           <v-card-title primary-title class="pl-3 py-2">
             <div>
-              <div class="headline">No.{{ String(problem.pid).slice(-2) }}</div>
+              <div class="headline">No.{{ problem.num }}</div>
               <div>セッター：{{ problem.setted_by }}</div>
             </div>
           </v-card-title>
@@ -38,26 +38,12 @@ import { Problem } from '~/types/problem'
 export default class ProblemCard extends Vue {
   @Prop() problem!: Problem[]
 
-  difficulty: { [key: number]: string; } = {
-    0: '〜7級',
-    1: '6級',
-    2: '5級',
-    3: '4級',
-    4: '3級',
-    5: '2級',
-    6: '1級',
-    7: '初段〜',
+  private get difficulty() {
+    return this.$store.state.problem.difficulty
   }
 
-  difficultyColor: { [key: number]: string; } = {
-    0: 'r0',
-    1: 'r1',
-    2: 'r2',
-    3: 'r3',
-    4: 'r4',
-    5: 'r5',
-    6: 'r6',
-    7: 'r7',
+  private get difficultyColor() {
+    return this.$store.state.problem.difficultyColor
   }
 
   addSentProblem(problem) {

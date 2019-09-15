@@ -21,7 +21,7 @@ import { firebaseAuth } from '~/plugins/firebase'
 import { User } from '@firebase/auth-types'
 
 @Component({
-  layout: 'login',
+  layout: 'auth',
   components: {}
 })
 export default class login extends Vue {
