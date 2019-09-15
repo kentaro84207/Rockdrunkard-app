@@ -40,9 +40,11 @@ export const mutations: MutationTree<State> = {
   },
   setYear(state: State, year: number): void {
     state.setYear = year
+    state.editingProblem.year = year
   },
   setMonth(state: State, month: number): void {
     state.setMonth = month
+    state.editingProblem.month = month
   },
   editingProblem(state: State, problem: Problem): void {
     state.editingProblem = problem

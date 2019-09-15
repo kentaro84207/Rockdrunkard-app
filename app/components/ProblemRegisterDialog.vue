@@ -5,25 +5,26 @@
     </v-card-title>
     <v-layout pa-5>
       <v-flex xs12 md3 mr-3>
-        <v-select :items="nums" v-model="num" label="課題番号"></v-select>
+        <v-select :items="nums" :value="editingProblem.num" label="課題番号" @input="setValue({target:'num', value:$event})"></v-select>
       </v-flex>
       <v-flex xs12 md3 mr-3>
-        <v-text-field v-model="year" readonly label="年"></v-text-field>
+        <v-text-field :value="year" readonly label="年"></v-text-field>
       </v-flex>
       <v-flex xs12 md3 mr-3>
-        <v-text-field v-model="month" readonly label="月"></v-text-field>
+        <v-text-field :value="month" readonly label="月"></v-text-field>
       </v-flex>
       <v-flex xs12 md3 mr-3>
         <v-select
           item-text="label"
           item-value="value"
           :items="difficulties"
-          v-model="difficulty"
+          :value="editingProblem.difficulty"
           label="難易度"
+          @input="setValue({target:'difficulty', value:$event})"
         ></v-select>
       </v-flex>
       <v-flex xs12 md3 mr-3>
-        <v-text-field v-model="setted_by" label="セッター"></v-text-field>
+        <v-text-field :value="editingProblem.setted_by" label="セッター" @input="setValue({target:'setted_by', value:$event})"></v-text-field>
       </v-flex>
     </v-layout>
     <v-layout justify-center>
@@ -43,6 +44,8 @@ import firestore from '~/plugins/firestore'
 })
 export default class ProblemRegisterDialog extends Vue {
   // select項目
+  nums: number[] = [...Array(200).keys()].map(i => ++i)
+
   difficulties: object[] = [
     { label: '7級以下', value: 0 },
     { label: '6級', value: 1 },
@@ -53,47 +56,21 @@ export default class ProblemRegisterDialog extends Vue {
     { label: '1級', value: 6 },
     { label: '初段以上', value: 7 }
   ]
-  nums: number[] = [...Array(200).keys()].map(i => ++i)
-  // months: number[] = [...Array(12).keys()].map(i => ++i)
 
   // 初期化用
-  initValue: Problem = {
+  initProblem: Problem = {
     num: null,
     difficulty: null,
-    year: null,
-    month: null,
+    year: this.year,
+    month: this.month,
     pid: null,
     setted_by: null,
     redpoint_users: null
   }
 
+  // 新規・編集用
   private get editingProblem() {
     return this.$store.state.admin.editingProblem
-  }
-
-  private get editingValue() {
-    return Object.assign({}, this.editingProblem, {pid: this.pid, year: this.year, month: this.month})
-  }
-
-  private get num() {
-    return this.editingValue.num
-  }
-  private set num(val) {
-    this.editingValue.num = val
-  }
-
-  private get difficulty() {
-    return this.editingValue.difficulty
-  }
-  private set difficulty(val) {
-    this.editingValue.difficulty = val
-  }
-
-  private get setted_by() {
-    return this.editingValue.setted_by
-  }
-  private set setted_by(val) {
-    this.editingValue.setted_by = val
   }
 
   private get pid() {
@@ -108,26 +85,32 @@ export default class ProblemRegisterDialog extends Vue {
     return this.$store.state.admin.setMonth
   }
 
-  private get editedPid() {
-    return this.$store.state.admin.editedPid
+  private get isEditing() {
+    return this.$store.state.admin.editedPid !== -1
   }
 
   private get formTitle() {
-    return this.editedPid === -1 ? '課題を追加' : '課題を編集'
+    return this.isEditing  ? '課題を編集' : '課題を追加'
   }
 
   private get btnText() {
-    return this.editedPid === -1 ? '追加する' : '更新する'
+    return this.isEditing  ? '更新する' : '追加する'
+  }
+
+  setValue(e) {
+    const _obj = {[e.target]: e.value}
+    const newProblem = Object.assign({}, this.editingProblem, _obj)
+    this.$store.dispatch('admin/editingProblem', newProblem)
   }
 
   closeDialog() {
     // 編集項目初期化
-    this.$store.dispatch('admin/editingProblem', this.initValue)
+    this.$store.dispatch('admin/editingProblem', this.initProblem)
     this.$store.dispatch('admin/changeDialogState', 'close')
   }
 
   registerProblem() {
-    const problem: Problem = this.editingValue
+    const problem: Problem = this.editingProblem
     const id: string = `${problem.year}_${problem.month}_${problem.num}`
     firestore
       .collection('problems')

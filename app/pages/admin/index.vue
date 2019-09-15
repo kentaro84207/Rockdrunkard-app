@@ -23,8 +23,8 @@
       </v-flex>
     </v-layout>
     <v-layout pl-0>
-      <v-flex xs12 >
-        <Table :problems="problems" ></Table>
+      <v-flex xs12>
+        <Table :problems="problems"></Table>
       </v-flex>
     </v-layout>
     <v-layout mt-3 justify-center>
@@ -49,20 +49,18 @@ import ProblemRegisterDialog from '~/components/ProblemRegisterDialog.vue'
   layout: 'admin',
   components: {
     Table,
-    ProblemRegisterDialog,
-  },
+    ProblemRegisterDialog
+  }
 })
 export default class Admin extends Vue {
-
-  // TODO: 日付関連共通化
   today = new Date()
   year: number = this.today.getFullYear()
   month: number = this.today.getMonth() + 1
   months: number[] = [...Array(12).keys()].map(i => ++i)
 
   private get years() {
-    const RELEASE_YEAR : number = 2019
-    const now   = this.today
+    const RELEASE_YEAR: number = 2019
+    const now = this.today
     const year = now.getFullYear()
     return this.range(RELEASE_YEAR, year + 1)
   }
@@ -79,7 +77,7 @@ export default class Admin extends Vue {
     return this.$store.state.admin.dialog
   }
 
-  created(){
+  created() {
     this.changeDate()
     this.fetchAdminProblems()
   }
@@ -104,13 +102,11 @@ export default class Admin extends Vue {
   }
 
   range(from, to) {
-    const _array = [];
+    const _array = []
     for (let i = from; i <= to; i++) {
       _array.push(i)
     }
-    return _array;
+    return _array
   }
-
-
 }
 </script>
