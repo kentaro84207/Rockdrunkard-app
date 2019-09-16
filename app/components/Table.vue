@@ -2,29 +2,27 @@
   <v-data-table
     :headers="headers"
     :items="problems"
-    :pagination.sync="pageSetting"
+    :sort-by="['num']"
     class="elevation-1"
   >
-    <template v-slot:items="props">
-      <td class="text-xs-left">{{ props.item.num }}</td>
-      <td class="text-xs-left">{{ props.item.setted_by }}</td>
-      <td class="text-xs-left">
-        <v-layout>
+    <template v-slot:top>
+    </template>
+    <template v-slot:item.difficulty="{ item }">
+      <v-layout>
           <v-flex>
             <v-sheet
               :width="15"
               :height="15"
               :elevation="1"
-              :color="difficultyColor[props.item.difficulty]"
+              :color="difficultyColor[item.difficulty]"
             ></v-sheet>
           </v-flex>
-          <v-flex>{{ difficulty[props.item.difficulty] }}</v-flex>
+          <v-flex>{{ difficulty[item.difficulty] }}</v-flex>
         </v-layout>
-      </td>
-      <td class="justify-center layout px-0">
-        <v-icon small class="mr-2" @click="editItem(props.item)">edit</v-icon>
-        <v-icon small @click="deleteItem(props.item)">delete</v-icon>
-      </td>
+    </template>
+    <template v-slot:item.edit="{ item }">
+      <v-icon small class="mr-2" @click="editItem(item)">edit</v-icon>
+      <v-icon small @click="deleteItem(item)">delete</v-icon>
     </template>
   </v-data-table>
 </template>
@@ -42,10 +40,8 @@ export default class Table extends Vue {
     { text: '課題番号', value: 'num', align: 'left' },
     { text: 'セッター', value: 'setted_by', align: 'left' },
     { text: '難易度', value: 'difficulty', align: 'left' },
-    { text: '編集・削除', value: 'name', sortable: false, align: 'center' }
+    { text: '編集・削除', value: 'edit', sortable: false, align: 'center' }
   ]
-
-  pageSetting: object = { rowsPerPage: -1 }
 
   private get year() {
     return this.$store.state.admin.setYear

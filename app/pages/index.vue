@@ -5,7 +5,7 @@
         <div>{{ user }}</div>
         <div @click="signOut()">Sign Out</div>
         <v-flex xs12 sm8 md6>
-          <ul>
+          <ul class="pl-0">
             <ProblemCard v-for="problem in problems" :problem="problem" :key="problem.pid"></ProblemCard>
           </ul>
         </v-flex>

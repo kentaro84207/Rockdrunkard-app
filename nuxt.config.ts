@@ -82,23 +82,28 @@ const config: Configuration = {
   ** https://github.com/nuxt-community/vuetify-module
   */
   vuetify: {
+    customVariables: ['~/assets/variables.scss'],
     theme: {
-      primary: colors.blue.lighten1,
-      accent: colors.grey.darken3,
-      secondary: colors.amber.darken3,
-      info: colors.teal.lighten1,
-      warning: colors.amber.base,
-      error: colors.deepOrange.accent4,
-      success: colors.green.accent3,
-      bg: colors.lightBlue.lighten5,
-      r0: colors.blue.darken2,
-      r1: colors.yellow.darken2,
-      r2: colors.orange.darken1,
-      r3: colors.red.darken1,
-      r4: colors.green.darken3,
-      r5: colors.grey.lighten5,
-      r6: colors.grey.lighten1,
-      r7: colors.grey.darken4,
+      themes: {
+        light: {
+          primary: colors.blue.lighten1,
+          accent: colors.grey.darken3,
+          secondary: colors.amber.darken3,
+          info: colors.teal.lighten1,
+          warning: colors.amber.base,
+          error: colors.deepOrange.accent4,
+          success: colors.green.lighten1,
+          bg: colors.lightBlue.lighten5,
+          r0: colors.blue.darken2,
+          r1: colors.yellow.darken2,
+          r2: colors.orange.darken1,
+          r3: colors.red.darken1,
+          r4: colors.green.darken3,
+          r5: colors.grey.lighten5,
+          r6: colors.grey.lighten1,
+          r7: colors.grey.darken4,
+        }
+      }
     }
   },
   router: {

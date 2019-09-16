@@ -28,8 +28,8 @@
       </v-flex>
     </v-layout>
     <v-layout justify-center>
-      <v-btn class="cursor" @click="closeDialog()">キャンセル</v-btn>
-      <v-btn class="cursor" color="primary" @click="registerProblem()">{{ btnText }}</v-btn>
+      <v-btn class="cursor ma-3" min-width="100" @click="closeDialog()">キャンセル</v-btn>
+      <v-btn class="cursor ma-3" min-width="150" color="primary" @click="registerProblem()">{{ btnText }}</v-btn>
     </v-layout>
   </v-card>
 </template>
