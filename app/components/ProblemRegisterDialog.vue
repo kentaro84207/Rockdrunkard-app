@@ -98,7 +98,7 @@ export default class ProblemRegisterDialog extends Vue {
   }
 
   setValue(e) {
-    const _obj = {[e.target]: e.value}
+    const _obj = {[e.target]: e.value, pid: this.pid}
     const newProblem = Object.assign({}, this.editingProblem, _obj)
     this.$store.dispatch('admin/editingProblem', newProblem)
   }
