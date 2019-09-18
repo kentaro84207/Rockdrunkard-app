@@ -11,7 +11,7 @@ import {
 interface State {
   problems: Problem[]
   dialog: boolean
-  editedPid: number
+  editedPid: string
   editingProblem: Problem
   setYear: number
   setMonth: number
@@ -20,7 +20,7 @@ interface State {
 export const state = (): State => ({
   problems: [],
   dialog: false,
-  editedPid: -1,
+  editedPid: "-1",
   editingProblem: {
     num: null,
     difficulty: null,
@@ -52,7 +52,7 @@ export const mutations: MutationTree<State> = {
   changeDialogState(state: State): void {
     state.dialog = !state.dialog
   },
-  changeEditedPid(state: State, pid: number): void {
+  changeEditedPid(state: State, pid: string): void {
     state.editedPid = pid
   }
 }

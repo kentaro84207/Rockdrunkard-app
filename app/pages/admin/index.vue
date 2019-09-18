@@ -88,7 +88,7 @@ export default class Admin extends Vue {
   }
 
   openDialog() {
-    this.$store.dispatch('admin/changeEditedPid', -1)
+    this.$store.dispatch('admin/changeEditedPid', '-1')
     this.$store.dispatch('admin/changeDialogState', 'open')
   }
 

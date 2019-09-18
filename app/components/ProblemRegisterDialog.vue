@@ -52,6 +52,7 @@
 import { Component, Vue } from 'vue-property-decorator'
 import { Problem } from '~/types/problem'
 import firestore from '~/plugins/firestore'
+import uuid from 'uuid'
 
 @Component({
   components: {}
@@ -88,7 +89,7 @@ export default class ProblemRegisterDialog extends Vue {
   }
 
   private get pid() {
-    return this.editingProblem.pid ? this.editingProblem.pid : Date.now()
+    return this.editingProblem.pid ? this.editingProblem.pid : uuid()
   }
 
   private get year() {
@@ -100,7 +101,7 @@ export default class ProblemRegisterDialog extends Vue {
   }
 
   private get isEditing() {
-    return this.$store.state.admin.editedPid !== -1
+    return this.$store.state.admin.editedPid !== "-1"
   }
 
   private get formTitle() {
