@@ -5,7 +5,7 @@ export interface Problem {
   difficulty: null | number
   year: null | number
   month: null | number
-  pid: null | number
+  pid: null | string
   setted_by: null | string
   redpoint_users: null | Array<string>
 }

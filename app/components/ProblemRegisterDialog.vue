@@ -5,7 +5,12 @@
     </v-card-title>
     <v-layout pa-5>
       <v-flex xs12 md3 mr-3>
-        <v-select :items="nums" :value="editingProblem.num" label="課題番号" @input="setValue({target:'num', value:$event})"></v-select>
+        <v-select
+          :items="nums"
+          :value="editingProblem.num"
+          label="課題番号"
+          @input="setValue({target:'num', value:$event})"
+        ></v-select>
       </v-flex>
       <v-flex xs12 md3 mr-3>
         <v-text-field :value="year" readonly label="年"></v-text-field>
@@ -24,12 +29,21 @@
         ></v-select>
       </v-flex>
       <v-flex xs12 md3 mr-3>
-        <v-text-field :value="editingProblem.setted_by" label="セッター" @input="setValue({target:'setted_by', value:$event})"></v-text-field>
+        <v-text-field
+          :value="editingProblem.setted_by"
+          label="セッター"
+          @input="setValue({target:'setted_by', value:$event})"
+        ></v-text-field>
       </v-flex>
     </v-layout>
     <v-layout justify-center>
-      <v-btn class="cursor" @click="closeDialog()">キャンセル</v-btn>
-      <v-btn class="cursor" color="primary" @click="registerProblem()">{{ btnText }}</v-btn>
+      <v-btn class="cursor ma-3" min-width="100" @click="closeDialog()">キャンセル</v-btn>
+      <v-btn
+        class="cursor ma-3"
+        min-width="150"
+        color="primary"
+        @click="registerProblem()"
+      >{{ btnText }}</v-btn>
     </v-layout>
   </v-card>
 </template>
@@ -38,6 +52,7 @@
 import { Component, Vue } from 'vue-property-decorator'
 import { Problem } from '~/types/problem'
 import firestore from '~/plugins/firestore'
+import uuid from 'uuid'
 
 @Component({
   components: {}
@@ -74,7 +89,7 @@ export default class ProblemRegisterDialog extends Vue {
   }
 
   private get pid() {
-    return this.editingProblem.pid ? this.editingProblem.pid : Date.now()
+    return this.editingProblem.pid ? this.editingProblem.pid : uuid()
   }
 
   private get year() {
@@ -86,19 +101,19 @@ export default class ProblemRegisterDialog extends Vue {
   }
 
   private get isEditing() {
-    return this.$store.state.admin.editedPid !== -1
+    return this.$store.state.admin.editedPid !== "-1"
   }
 
   private get formTitle() {
-    return this.isEditing  ? '課題を編集' : '課題を追加'
+    return this.isEditing ? '課題を編集' : '課題を追加'
   }
 
   private get btnText() {
-    return this.isEditing  ? '更新する' : '追加する'
+    return this.isEditing ? '更新する' : '追加する'
   }
 
   setValue(e) {
-    const _obj = {[e.target]: e.value}
+    const _obj = { [e.target]: e.value, pid: this.pid }
     const newProblem = Object.assign({}, this.editingProblem, _obj)
     this.$store.dispatch('admin/editingProblem', newProblem)
   }
@@ -116,7 +131,16 @@ export default class ProblemRegisterDialog extends Vue {
       .collection('problems')
       .doc(id)
       .set(problem)
+      .then(()=> {
+        this.fetchProblems()
+      })
+      .catch(function(error) {
+        console.error('Error writing document: ', error)
+      })
     this.closeDialog()
+  }
+
+  fetchProblems() {
     const selectedDate = {
       year: this.year,
       month: this.month

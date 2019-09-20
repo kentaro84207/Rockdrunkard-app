@@ -1,31 +1,31 @@
 <template>
   <li class="pb-3">
-    <v-card :color="difficultyColor[problem.difficulty]" class="black--text">
+    <v-card :color="difficultyColor[problem.difficulty]" raised class="black--text">
       <v-layout>
-        <v-flex xs7>
-          <v-card-title primary-title class="pl-3 py-2">
+        <v-flex xs3>
+          <v-card-title primary-title class="pl-3 py-0 pr-0">
             <div>
-              <div class="headline">No.{{ problem.num }}</div>
-              <div>セッター：{{ problem.setted_by }}</div>
+              <div class="title">No.{{ problem.num }}</div>
+              <div class="body-1">{{ problem.setted_by }}</div>
             </div>
           </v-card-title>
         </v-flex>
         <v-flex xs5>
-          <v-card-title primary-title class="pl-3 py-2">
+          <v-card-title primary-title class="pl-3 py-0">
             <div>
-              <div class="headline">{{ difficulty[problem.difficulty] }}</div>
-              <div>完登人数：10</div>
+              <div class="title">{{ difficulty[problem.difficulty] }}</div>
+              <div class="body-1">完登数：10</div>
             </div>
           </v-card-title>
         </v-flex>
+        <v-flex xs4 pl-0>
+          <div class="py-0">
+            <v-switch pt-0 color="primary" hide-details class="mt-3" v-model="switch1" :label="labelText"></v-switch>
+            <!-- <v-checkbox @click="addSentProblem(problem)" label="完登"></v-checkbox> -->
+          </div>
+        </v-flex>
       </v-layout>
-      <v-divider light></v-divider>
-      <v-card-actions class="pl-3 py-0">
-        <!-- <div class="test">完登日</div> -->
-        <!-- <div>2019/07/03</div> -->
-        <!-- <v-spacer></v-spacer> -->
-        <v-checkbox @click="addSentProblem(problem)" label="完登"></v-checkbox>
-      </v-card-actions>
+      <v-divider class="mb-1" light></v-divider>
     </v-card>
   </li>
 </template>
@@ -38,6 +38,9 @@ import { Problem } from '~/types/problem'
 export default class ProblemCard extends Vue {
   @Prop() problem!: Problem[]
 
+  switch1: boolean = false
+  label
+
   private get difficulty() {
     return this.$store.state.problem.difficulty
   }
@@ -46,8 +49,15 @@ export default class ProblemCard extends Vue {
     return this.$store.state.problem.difficultyColor
   }
 
+  private get labelText() {
+    return this.switch1 ? '完登' : '未完登'
+  }
+
   addSentProblem(problem) {
-    this.$store.dispatch('user/addSentProblem', problem)
+    // this.$store.dispatch('user/addSentProblem', problem)
+    console.log('hello')
   }
 }
 </script>
+<style lang='scss' scoped >
+</style>
