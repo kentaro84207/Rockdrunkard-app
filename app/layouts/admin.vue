@@ -8,31 +8,31 @@
       app
     >
       <v-list>
-        <v-list-tile
+        <v-list-item
           v-for="(item, i) in items"
           :key="i"
           :to="item.to"
           router
           exact
         >
-          <v-list-tile-action>
+          <v-list-item-icon>
             <v-icon>{{ item.icon }}</v-icon>
-          </v-list-tile-action>
-          <v-list-tile-content>
-            <v-list-tile-title v-text="item.title" />
-          </v-list-tile-content>
-        </v-list-tile>
+          </v-list-item-icon>
+          <v-list-item-content>
+            <v-list-item-title v-text="item.title" />
+          </v-list-item-content>
+        </v-list-item>
       </v-list>
     </v-navigation-drawer>
-    <v-toolbar :clipped-left="clipped" fixed app>
-      <v-toolbar-side-icon @click="drawer = !drawer" />
-      <nuxt-link to="/">
-        <h1 class="nav__heading">
+    <v-app-bar :clipped-left="clipped" fixed app>
+      <v-app-bar-nav-icon @click="drawer = !drawer" />
+      <nuxt-link to="/admin">
+        <h1 class="title">
           <v-toolbar-title v-text="title" />
         </h1>
       </nuxt-link>
       <v-spacer />
-    </v-toolbar>
+    </v-app-bar>
     <v-content>
       <nuxt />
     </v-content>
@@ -49,7 +49,7 @@ import { Component, Vue } from 'vue-property-decorator'
 export default class AdminLayout extends Vue {
   clipped: boolean = true
   fixed: boolean = false
-  drawer: boolean = true
+  drawer: boolean = false
   items: object[] = [
     {
       icon: 'list',
@@ -63,7 +63,7 @@ export default class AdminLayout extends Vue {
     },
   ]
   miniVariant:boolean = false
-  title:string = 'Rock Drunkard'
+  title:string = 'Rock Drunkard admin'
 }
 </script>
 

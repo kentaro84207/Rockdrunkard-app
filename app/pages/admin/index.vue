@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <v-layout>
+    <v-layout pt-3>
       <v-flex xs12 md3 mr-3>
         <v-select
           item-text="label"
@@ -88,7 +88,7 @@ export default class Admin extends Vue {
   }
 
   openDialog() {
-    this.$store.dispatch('admin/changeEditedPid', -1)
+    this.$store.dispatch('admin/changeEditedPid', '-1')
     this.$store.dispatch('admin/changeDialogState', 'open')
   }
 
