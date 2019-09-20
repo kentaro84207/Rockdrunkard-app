@@ -1,6 +1,6 @@
 <template>
   <v-card>
-    <v-container fluid grid-list-lg>
+    <v-container fluid grid-list-lg mb-10 pb-12>
       <v-layout row wrap>
         <div>{{ user }}</div>
         <div @click="signOut()">Sign Out</div>
