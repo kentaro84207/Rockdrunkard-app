@@ -86,9 +86,9 @@ const config: Configuration = {
     theme: {
       themes: {
         light: {
-          primary: colors.blue.lighten1,
-          accent: colors.grey.darken3,
-          secondary: colors.amber.darken3,
+          primary: colors.indigo.darken2,
+          accent: colors.amber.accent1,
+          secondary: colors.cyan.lighten4,
           info: colors.teal.lighten1,
           warning: colors.amber.base,
           error: colors.deepOrange.accent4,

@@ -21,7 +21,7 @@ import TheNavigation from '~/components/TheNavigation.vue'
     TheNavigation
   }
 })
-export default class Posts extends Vue {
+export default class DefaultLayout extends Vue {
   private get user() {
     try {
       return this.$store.state.user.user
