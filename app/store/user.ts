@@ -1,35 +1,35 @@
-import { User } from '~/types/user';
-import { MutationTree, GetterTree, ActionTree } from 'vuex';
-import firestore from '~/plugins/firestore';
-import { firebaseAuth, GoogleAuthProvider } from '~/plugins/firebase';
+import { User } from '~/types/user'
+import { MutationTree, GetterTree, ActionTree } from 'vuex'
+import firestore from '~/plugins/firestore'
+import { firebaseAuth, GoogleAuthProvider } from '~/plugins/firebase'
 
 interface State {
   // loading: boolean;
-  user: User;
+  user: User
 }
 
 export const state = (): State => ({
   // loading: false,
   user: null
-});
+})
 
 export const mutations: MutationTree<State> = {
   // setLoading(state: State, loading: boolean): void {
   //   state.loading = loading;
   // },
   setUser(state: State, payload: User): void {
-    state.user = payload;
-  }
-};
+    state.user = payload
+  },
+}
 
 export const getters: GetterTree<State, State> = {
   isAuthenticated(state) {
     return !!state.user
-  },
+  }
   // user(state) {
   //   return state.user
   // }
-};
+}
 
 export const actions: ActionTree<State, State> = {
   authStateChange({ commit }, payload) {
@@ -40,8 +40,8 @@ export const actions: ActionTree<State, State> = {
       emailVerified: payload.emailVerified,
       isAnonymous: payload.isAnonymous,
       uid: payload.uid
-    };
-    commit('setUser', user);
+    }
+    commit('setUser', user)
     // commit('setLoading', false);
   },
 
@@ -58,7 +58,7 @@ export const actions: ActionTree<State, State> = {
   // },
 
   async signOut({ commit }) {
-    await firebaseAuth.signOut();
-    commit('setUser', null);
+    await firebaseAuth.signOut()
+    commit('setUser', null)
   }
-};
+}

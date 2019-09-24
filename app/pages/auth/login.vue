@@ -3,13 +3,22 @@
     <v-container>
       <v-layout px-3 pb-12>
         <h1 class="display-3 font-weight-black white--text">
-          Rock<br>
-          Drunkard<br>
-          APP
+          Rock
+          <br />Drunkard
+          <br />APP
         </h1>
       </v-layout>
       <v-col cols="12" sm="6" class="pt-0 pb-1">
-        <v-text-field solo v-model="email" :rules="emailRules" label="E-mail" color="white" background-color="white" required></v-text-field>
+        <v-text-field
+          solo
+          v-model="email"
+          :rules="emailRules"
+          label="E-mail"
+          color="white"
+          background-color="white"
+          required
+          @click="resetSubmitError"
+        ></v-text-field>
       </v-col>
       <v-col cols="12" sm="6" class="pt-0 pb-0">
         <v-text-field
@@ -25,14 +34,36 @@
           hint="At least 8 characters"
           class="input-group--focused"
           @click:append="showPassword = !showPassword"
+          @click="resetSubmitError"
         ></v-text-field>
       </v-col>
       <v-col cols="12" sm="6" class="pt-0 pb-8">
-        <v-btn large depressed color="accent" width="100%" height="50" class="font-weight-bold black--text" @click="signin()">ログイン</v-btn>
+        <v-btn
+          large
+          depressed
+          color="accent"
+          width="100%"
+          height="50"
+          class="font-weight-bold black--text"
+          @click="signin"
+        >ログイン</v-btn>
+        <div class="v-messages theme--light error--text px-3 mt-2" v-if="submitError">
+          <div class="v-messages__wrapper">
+            <div class="v-messages__message">{{ submitErrorMessage }}</div>
+          </div>
+        </div>
       </v-col>
       <v-divider class="white"></v-divider>
       <v-col cols="12" sm="6" class="pt-8">
-        <v-btn large depressed color="white" width="100%" height="50" class="font-weight-bold" to="/auth/signup">新規登録</v-btn>
+        <v-btn
+          large
+          depressed
+          color="white"
+          width="100%"
+          height="50"
+          class="font-weight-bold"
+          to="/auth/signup"
+        >新規登録</v-btn>
         <!-- <nuxt-link to="/auth/signup">Sign Up</nuxt-link> -->
       </v-col>
     </v-container>
@@ -61,6 +92,8 @@ export default class login extends Vue {
     v => !!v || 'E-mail is required',
     v => /.+@.+/.test(v) || 'E-mail must be valid'
   ]
+  submitError: boolean = false
+  submitErrorMessage: string = ''
 
   async signin() {
     try {
@@ -68,7 +101,14 @@ export default class login extends Vue {
       this.$router.replace('/')
     } catch (error) {
       console.log('Login error', error)
+      this.submitErrorMessage = error.message
+      this.submitError = true
     }
+  }
+
+  resetSubmitError() {
+    this.submitErrorMessage = ''
+    this.submitError = false
   }
 
   // async signInWithGoogle() {
