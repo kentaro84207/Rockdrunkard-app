@@ -18,7 +18,7 @@
           color="white"
           background-color="white"
           required
-          @change="checkNickname"
+          @input="checkNickname"
           @click="resetSubmitError"
         ></v-text-field>
       </v-col>
@@ -32,7 +32,7 @@
           background-color="white"
           required
           @click="resetSubmitError"
-          @change="checkForm"
+          @input="checkForm"
         ></v-text-field>
       </v-col>
       <v-col cols="12" sm="6" class="pt-0 pb-0">
@@ -50,7 +50,7 @@
           class="input-group--focused"
           @click:append="showPassword = !showPassword"
           @click="resetSubmitError"
-          @change="checkForm"
+          @input="checkForm"
         ></v-text-field>
       </v-col>
       <v-col cols="12" sm="6" class="pt-0 pb-8">
