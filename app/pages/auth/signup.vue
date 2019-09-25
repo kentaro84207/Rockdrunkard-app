@@ -33,6 +33,7 @@
           required
           @click="resetSubmitError"
           @input="checkForm"
+          @blur="checkForm"
         ></v-text-field>
       </v-col>
       <v-col cols="12" sm="6" class="pt-0 pb-0">
@@ -51,6 +52,7 @@
           @click:append="showPassword = !showPassword"
           @click="resetSubmitError"
           @input="checkForm"
+          @blur="checkForm"
         ></v-text-field>
       </v-col>
       <v-col cols="12" sm="6" class="pt-0 pb-8">
@@ -95,7 +97,8 @@ export default class Signup extends Vue {
     email: v => /.+@.+/.test(v) || 'E-mail must be valid'
   }
   nicknameError: boolean = false
-  nicknameErrorMessage: string = 'このニックネームは存在します。他のニックネームを入力してください'
+  nicknameErrorMessage: string =
+    'このニックネームは存在します。他のニックネームを入力してください'
   submitError: boolean = false
   submitErrorMessage: string = ''
 
@@ -107,11 +110,22 @@ export default class Signup extends Vue {
     this.checkForm()
     if (this.valid) {
       try {
-        await firebaseAuth.createUserWithEmailAndPassword(
-          this.email,
-          this.password
-        )
-        this.$router.replace('/')
+        await firebaseAuth
+          .createUserWithEmailAndPassword(this.email, this.password)
+          .then(cred => {
+            console.log(cred)
+            firestore
+              .collection('users')
+              .doc(cred.user.uid)
+              .set({
+                nickname: this.nickname,
+                email: cred.user.email,
+                uid: cred.user.uid,
+              })
+          })
+          .then(() => {
+            this.$router.replace('/')
+          })
       } catch (error) {
         console.log('Signup error', error)
         this.submitErrorMessage = error.message

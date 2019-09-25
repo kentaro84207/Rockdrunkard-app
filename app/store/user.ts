@@ -32,14 +32,15 @@ export const getters: GetterTree<State, State> = {
 }
 
 export const actions: ActionTree<State, State> = {
-  authStateChange({ commit }, payload) {
+  async authStateChange({ commit }, payload) {
     // commit('setLoading', true);
+    const userRef = firestore.collection('users').doc(payload.uid)
+    const userSnap = await userRef.get()
+    const userDate = userSnap.data()
 
     const user: User = {
-      ...payload.providerData[0],
-      emailVerified: payload.emailVerified,
-      isAnonymous: payload.isAnonymous,
-      uid: payload.uid
+      nickname: userDate.nickname,
+      uid: userDate.uid
     }
     commit('setUser', user)
     // commit('setLoading', false);
