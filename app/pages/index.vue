@@ -1,17 +1,21 @@
 <template>
-  <v-card>
-    <v-container fluid grid-list-lg mb-10 pb-12>
-      <v-layout row wrap>
-        <div>{{ user }}</div>
-        <div @click="signOut()">Sign Out</div>
-        <v-flex xs12 sm8 md6>
-          <ul class="pl-0">
-            <ProblemCard v-for="problem in problems" :problem="problem" :key="problem.pid"></ProblemCard>
-          </ul>
-        </v-flex>
-      </v-layout>
-    </v-container>
-  </v-card>
+  <v-container fluid grid-list-lg mb-10 pb-12>
+    <v-layout row wrap>
+      <div>{{ user }}</div>
+      <v-flex xs12 sm8 md6>
+        <v-img
+          src="https://cdn.vuetifyjs.com/images/parallax/material2.jpg"
+          class="grey lighten-2"
+          width="100%"
+        ></v-img>
+      </v-flex>
+      <v-flex xs12 sm8 md6>
+        <ul class="pl-0">
+          <ProblemCard v-for="problem in problems" :problem="problem" :key="problem.pid"></ProblemCard>
+        </ul>
+      </v-flex>
+    </v-layout>
+  </v-container>
 </template>
 
 <script lang="ts">
