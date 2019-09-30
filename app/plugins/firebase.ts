@@ -1,5 +1,5 @@
-import * as firebase from 'firebase/app';
-import 'firebase/auth';
+import * as firebase from 'firebase/app'
+import 'firebase/auth'
 
 const config = {
   apiKey: process.env.APIKEY,
@@ -10,6 +10,8 @@ const config = {
   messagingSenderId: process.env.MESSAGINGSENDERID
 }
 
-export default (!firebase.apps.length ? firebase.initializeApp(config) : firebase.app());
-export const GoogleAuthProvider = new firebase.auth.GoogleAuthProvider();
-export const firebaseAuth = firebase.auth();
+export default !firebase.apps.length
+  ? firebase.initializeApp(config)
+  : firebase.app()
+export const GoogleAuthProvider = new firebase.auth.GoogleAuthProvider()
+export const firebaseAuth = firebase.auth()

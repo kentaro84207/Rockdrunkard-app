@@ -20,7 +20,16 @@
         </v-flex>
         <v-flex xs4 pl-0>
           <div class="py-0">
-            <v-switch pt-0 color="primary" hide-details class="mt-3" v-model="switch1" :label="labelText"></v-switch>
+            <v-switch
+              pt-0
+              color="primary"
+              hide-details
+              class="mt-3"
+              inset
+              v-model="switchStatus"
+              :label="labelText"
+              @change="switchSentProblem(problem)"
+            ></v-switch>
             <!-- <v-checkbox @click="addSentProblem(problem)" label="完登"></v-checkbox> -->
           </div>
         </v-flex>
@@ -33,13 +42,22 @@
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator'
 import { Problem } from '~/types/problem'
+import firebase from 'firebase'
+import firestore from '~/plugins/firestore'
 
 @Component({})
 export default class ProblemCard extends Vue {
   @Prop() problem!: Problem[]
 
-  switch1: boolean = false
-  label
+  switchStatus: boolean = false
+
+  private get user() {
+    try {
+      return this.$store.state.user.user
+    } catch (error) {
+      return false
+    }
+  }
 
   private get difficulty() {
     return this.$store.state.problem.difficulty
@@ -50,12 +68,38 @@ export default class ProblemCard extends Vue {
   }
 
   private get labelText() {
-    return this.switch1 ? '完登' : '未完登'
+    return this.switchStatus ? '完登' : '未完登'
   }
 
-  addSentProblem(problem) {
-    // this.$store.dispatch('user/addSentProblem', problem)
-    console.log('hello')
+  async switchSentProblem(problem) {
+    const pid = String(problem.pid)
+    const problemId = `${problem.year}_${problem.month}_${problem.num}`
+    const ascentRef = firestore
+        .collection('users')
+        .doc(this.user.uid)
+        .collection('ascents')
+        .doc(pid)
+    const userRef = firestore
+        .collection('problems')
+        .doc(problemId)
+        .collection('ascent_users')
+        .doc(this.user.uid)
+
+    if (this.switchStatus) {
+      const batch = firestore.batch()
+      batch.set(ascentRef, {
+        created_at: firebase.firestore.FieldValue.serverTimestamp()
+      })
+      batch.set(userRef, {
+        created_at: firebase.firestore.FieldValue.serverTimestamp()
+      })
+      await batch.commit()
+    }else{
+      const batch = firestore.batch()
+      batch.delete(ascentRef)
+      batch.delete(userRef)
+      await batch.commit()
+    }
   }
 }
 </script>

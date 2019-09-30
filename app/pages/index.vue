@@ -56,16 +56,6 @@ export default class Top extends Vue {
     }
   }
 
-  // private get sortedProblemsByNum() {
-  //   return this.problems.sort((a, b) => {
-  //     return a.num < b.num ? -1 : a.num > b.num ? 1 : 0
-  //   })
-  // }
-
-  // async problems() {
-  //   await this.$store.dispatch('problem/getProblems')
-  // }
-
   async signOut() {
     try {
       await this.$store.dispatch('user/signOut')
