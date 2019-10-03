@@ -7,5 +7,4 @@ export interface Problem {
   month: null | number
   pid: null | string
   setted_by: null | string
-  redpoint_users: null | Array<string>
 }

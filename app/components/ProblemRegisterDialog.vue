@@ -80,7 +80,6 @@ export default class ProblemRegisterDialog extends Vue {
     month: this.month,
     pid: null,
     setted_by: null,
-    redpoint_users: null
   }
 
   // 新規・編集用

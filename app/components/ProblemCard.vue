@@ -72,33 +72,52 @@ export default class ProblemCard extends Vue {
   }
 
   async switchSentProblem(problem) {
+    if (
+      confirm(
+        `課題${problem.num}を${this.labelText} に変更してもよろしいですか？`
+      )
+    ) {
+      console.log('hello')
+    } else {
+      setTimeout(() => {
+        this.switchStatus = !this.switchStatus
+      }, 10)
+    }
+    // 読み込み時に、完登状態を反映
     const pid = String(problem.pid)
     const problemId = `${problem.year}_${problem.month}_${problem.num}`
-    const ascentRef = firestore
-        .collection('users')
-        .doc(this.user.uid)
-        .collection('ascents')
-        .doc(pid)
-    const userRef = firestore
-        .collection('problems')
-        .doc(problemId)
-        .collection('ascent_users')
-        .doc(this.user.uid)
+    // const ascentRef = firestore
+    //   .collection('users')
+    //   .doc(this.user.uid)
+    //   .collection('ascents')
+    //   .doc(pid)
+    // const userRef = firestore
+    //     .collection('problems')
+    //     .doc(problemId)
+    //     .collection('ascent_users')
+    //     .doc(this.user.uid)
+    const problemRef = firestore.collection('problems').doc(problemId)
 
     if (this.switchStatus) {
       const batch = firestore.batch()
-      batch.set(ascentRef, {
-        created_at: firebase.firestore.FieldValue.serverTimestamp()
+      batch.update(problemRef, {
+        ascent_users: firebase.firestore.FieldValue.arrayUnion(this.user.uid)
       })
-      batch.set(userRef, {
-        created_at: firebase.firestore.FieldValue.serverTimestamp()
-      })
+      //   batch.set(ascentRef, {
+      //     created_at: firebase.firestore.FieldValue.serverTimestamp()
+      //   })
+      //   batch.set(userRef, {
+      //     created_at: firebase.firestore.FieldValue.serverTimestamp()
+      //   })
       await batch.commit()
-    }else{
+    } else {
       const batch = firestore.batch()
-      batch.delete(ascentRef)
-      batch.delete(userRef)
-      await batch.commit()
+      batch.update(problemRef, {
+        ascent_users: firebase.firestore.FieldValue.arrayRemove(this.user.uid)
+      })
+      //   batch.delete(ascentRef)
+      //   batch.delete(userRef)
+        await batch.commit()
     }
   }
 }
