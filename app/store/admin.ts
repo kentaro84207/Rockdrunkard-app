@@ -28,6 +28,7 @@ export const state = (): State => ({
     month: null,
     pid: null,
     setted_by: null,
+    point: 100
   },
   setYear: null,
   setMonth: null
