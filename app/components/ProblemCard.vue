@@ -77,7 +77,6 @@ export default class ProblemCard extends Vue {
         `課題${problem.num}を${this.labelText} に変更してもよろしいですか？`
       )
     ) {
-      console.log('hello')
     } else {
       setTimeout(() => {
         this.switchStatus = !this.switchStatus
