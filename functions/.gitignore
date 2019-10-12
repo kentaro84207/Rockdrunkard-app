@@ -1,0 +1,12 @@
+## Compiled JavaScript files
+**/*.js
+**/*.js.map
+lib
+
+# Typescript v1 declaration files
+typings/
+
+node_modules/
+
+# key
+src/rockdrunkard-app-firebase-adminsdk.json

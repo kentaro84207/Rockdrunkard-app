@@ -28,7 +28,8 @@ export const state = (): State => ({
     month: null,
     pid: null,
     setted_by: null,
-    redpoint_users: null
+    point: 100,
+    ascent_users: []
   },
   setYear: null,
   setMonth: null
