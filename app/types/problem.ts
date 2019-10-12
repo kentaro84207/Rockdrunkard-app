@@ -8,4 +8,5 @@ export interface Problem {
   pid: null | string
   setted_by: null | string
   point: number
+  ascent_users: string[] | null
 }

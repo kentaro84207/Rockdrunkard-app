@@ -42,18 +42,36 @@ export const state = (): State => ({
 })
 
 export const mutations: MutationTree<State> = {
-  // setLoading(state: State, loading: boolean): void {
-  //   state.loading = loading;
-  // },
   setProblems(state: State, problems: Problem[]): void {
     state.problems = problems
-  }
+  },
+  setAscentUser(state: State, updatedProblems: Problem[]): void {
+    state.problems = updatedProblems
+  },
+  addAscentUser(state: State, status: object): void {
+    const updatedProblems: Problem[] = state.problems
+    for (const problem of updatedProblems) {
+      if (problem.num === status['num']) {
+        problem.ascent_users.push(status['user'])
+      }
+    }
+    state.problems = updatedProblems
+  },
+  removeAscentUser(state: State, status: object): void {
+    const updatedProblems: Problem[] = state.problems
+    for (const problem of updatedProblems) {
+      if (problem.num === status['num']) {
+        const newUsers = problem.ascent_users.filter((user) => user !== status['user'])
+        problem.ascent_users = newUsers
+      }
+    }
+    state.problems = updatedProblems
+  },
 }
 
 export const actions: ActionTree<State, State> = {
   // Fetch events from Firestore once
   async getProblems({ commit }, payload) {
-    // commit('setLoading', true);
     const problemsSnapshot: QuerySnapshot = await firestore
       .collection('problems')
       .where('year', '==', payload.year)
@@ -70,6 +88,15 @@ export const actions: ActionTree<State, State> = {
     })
 
     commit('setProblems', sortedProblems)
-    // commit('setLoading', false);
+  },
+
+  addAscentUser({ commit }, payload) {
+    // add ascent_users when switched status on
+    commit('addAscentUser', payload)
+  },
+
+  removeAscentUser({ commit }, payload) {
+    // remove ascent_users when switched status off
+    commit('removeAscentUser', payload)
   }
 }
