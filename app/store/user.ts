@@ -40,7 +40,8 @@ export const actions: ActionTree<State, State> = {
 
     const user: User = {
       nickname: userDate.nickname,
-      uid: userDate.uid
+      uid: userDate.uid,
+      points: userDate.points
     }
     commit('setUser', user)
     // commit('setLoading', false);

@@ -113,7 +113,6 @@ export default class Signup extends Vue {
         await firebaseAuth
           .createUserWithEmailAndPassword(this.email, this.password)
           .then(cred => {
-            console.log(cred)
             firestore
               .collection('users')
               .doc(cred.user.uid)
