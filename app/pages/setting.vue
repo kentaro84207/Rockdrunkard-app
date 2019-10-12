@@ -13,7 +13,7 @@ import firestore from '~/plugins/firestore'
 @Component({
   components: {}
 })
-export default class Top extends Vue {
+export default class Setting extends Vue {
   async signOut() {
     try {
       await this.$store.dispatch('user/signOut')

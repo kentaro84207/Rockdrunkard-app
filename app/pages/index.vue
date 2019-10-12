@@ -1,7 +1,6 @@
 <template>
   <v-container fluid grid-list-lg mb-10 pb-6>
     <v-layout row wrap>
-      <div>{{ user }}</div>
       <v-flex xs12 sm8 md6>
         <v-img
           src="https://cdn.vuetifyjs.com/images/parallax/material2.jpg"
