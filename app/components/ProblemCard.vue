@@ -145,6 +145,8 @@ export default class ProblemCard extends Vue {
         created_at: firebase.firestore.FieldValue.serverTimestamp()
       })
       batch.set(userRef, {
+        uid: this.user.uid,
+        userRef: firestore.collection('users').doc(this.user.uid),
         created_at: firebase.firestore.FieldValue.serverTimestamp()
       })
       await batch.commit()

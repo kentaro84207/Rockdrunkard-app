@@ -61,12 +61,14 @@ export const mutations: MutationTree<State> = {
     const updatedProblems: Problem[] = state.problems
     for (const problem of updatedProblems) {
       if (problem.num === status['num']) {
-        const newUsers = problem.ascent_users.filter((user) => user !== status['user'])
+        const newUsers = problem.ascent_users.filter(
+          user => user !== status['user']
+        )
         problem.ascent_users = newUsers
       }
     }
     state.problems = updatedProblems
-  },
+  }
 }
 
 export const actions: ActionTree<State, State> = {
@@ -79,6 +81,7 @@ export const actions: ActionTree<State, State> = {
       .get()
     const problems = []
 
+    console.log(problemsSnapshot)
     problemsSnapshot.forEach(queryDocumentSnapshot =>
       problems.push(queryDocumentSnapshot.data())
     )
