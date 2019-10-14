@@ -81,7 +81,6 @@ export const actions: ActionTree<State, State> = {
       .get()
     const problems = []
 
-    console.log(problemsSnapshot)
     problemsSnapshot.forEach(queryDocumentSnapshot =>
       problems.push(queryDocumentSnapshot.data())
     )

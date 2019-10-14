@@ -4,7 +4,7 @@
       <v-flex xs12 sm8 md6>
         <v-list>
           <v-subheader>現在の順位</v-subheader>
-          <v-list-item v-for="(item, i) in items" :key="item.name">
+          <v-list-item v-for="(item, i) in userPoints" :key="item.name">
             <v-list-item-content>
               <v-flex xs3 pa-0>
                 <v-list-item-title>{{ i + 1 }}</v-list-item-title>
@@ -31,11 +31,17 @@ import firestore from '~/plugins/firestore'
   components: {}
 })
 export default class Ranking extends Vue {
-  items: any = [
-    { name: 'Real-Time', point: 10000 },
-    { name: 'Audience', point: 8000 },
-    { name: 'Conversions', point: 5000 }
-  ]
+  created() {
+    this.$store.dispatch('ranking/fetchUserPoints')
+  }
+
+  private get userPoints() {
+    try {
+      return this.$store.state.ranking.userPoints
+    } catch (error) {
+      return false
+    }
+  }
 }
 </script>
 
