@@ -8,9 +8,9 @@
       <span>順位</span>
       <v-icon>trending_up</v-icon>
     </v-btn>
-    <v-btn color="white" value="setting" to="/setting" nuxt>
-      <span>設定</span>
-      <v-icon>more_horiz</v-icon>
+    <v-btn color="white" value="mypage" to="/mypage" nuxt>
+      <span>マイページ</span>
+      <v-icon>account_circle</v-icon>
     </v-btn>
   </v-bottom-navigation>
 </template>

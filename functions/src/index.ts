@@ -18,7 +18,7 @@ async function fetchPoint(problemRef: any) {
   return problem ? problem.point : 0
 }
 
-// user_pointsコレクションに書き込む
+// user_points、usersコレクションに書き込む
 async function updateUserPoints(uid: string, point: number) {
   const yearMonth = `${year}_${month}`
   await db
@@ -27,6 +27,10 @@ async function updateUserPoints(uid: string, point: number) {
     .set({
       [yearMonth]: point
     })
+  await db
+    .collection('users')
+    .doc(uid)
+    .update({ point })
 }
 
 // ユーザの総得点を計算

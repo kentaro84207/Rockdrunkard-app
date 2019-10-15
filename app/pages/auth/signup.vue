@@ -120,6 +120,7 @@ export default class Signup extends Vue {
                 nickname: this.nickname,
                 email: cred.user.email,
                 uid: cred.user.uid,
+                point: 0
               })
           })
           .then(() => {

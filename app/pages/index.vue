@@ -1,5 +1,5 @@
 <template>
-  <v-container fluid grid-list-lg mb-10 pb-6>
+  <v-container fluid grid-list-lg mb-12 pb-12>
     <v-layout row wrap>
       <v-flex xs12 sm8 md6>
         <v-img
@@ -13,6 +13,9 @@
           <ProblemCard v-for="problem in problems" :problem="problem" :key="problem.pid"></ProblemCard>
         </ul>
       </v-flex>
+      <v-btn fixed dark fab bottom right color="pink" class="mb-12" @click="refresh">
+        <v-icon>refresh</v-icon>
+      </v-btn>
     </v-layout>
   </v-container>
 </template>
@@ -39,14 +42,6 @@ export default class Top extends Vue {
     await this.$store.dispatch('problem/getProblems', date)
   }
 
-  private get user() {
-    try {
-      return this.$store.state.user.user.displayName
-    } catch (error) {
-      return false
-    }
-  }
-
   private get problems() {
     try {
       return this.$store.state.problem.problems
@@ -55,13 +50,8 @@ export default class Top extends Vue {
     }
   }
 
-  async signOut() {
-    try {
-      await this.$store.dispatch('user/signOut')
-      this.$router.replace('/')
-    } catch (error) {
-      console.log('Sign Out error', error)
-    }
+  refresh() {
+    location.reload(true)
   }
 }
 </script>

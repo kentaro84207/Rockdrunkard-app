@@ -41,23 +41,11 @@ export const actions: ActionTree<State, State> = {
     const user: User = {
       nickname: userDate.nickname,
       uid: userDate.uid,
-      points: userDate.points
+      point: userDate.point
     }
     commit('setUser', user)
     // commit('setLoading', false);
   },
-
-  // addSentProblem({ commit }, payload) {
-  //   console.log(payload)
-  // },
-
-  // async signInWithGoogle() {
-  //   await firebaseAuth.signInWithPopup(GoogleAuthProvider);
-  // },
-
-  // async signInWithEmailPassword() {
-  //   await firebaseAuth.signInWithPopup(GoogleAuthProvider);
-  // },
 
   async signOut({ commit }) {
     await firebaseAuth.signOut()
