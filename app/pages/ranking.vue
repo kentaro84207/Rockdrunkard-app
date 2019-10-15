@@ -17,6 +17,9 @@
               </v-flex>
             </v-list-item-content>
           </v-list-item>
+          <v-btn fixed dark fab bottom right color="pink" class="mb-12" @click="refresh">
+            <v-icon>refresh</v-icon>
+          </v-btn>
         </v-list>
       </v-flex>
     </v-layout>
@@ -41,6 +44,10 @@ export default class Ranking extends Vue {
     } catch (error) {
       return false
     }
+  }
+
+  refresh() {
+    location.reload(true)
   }
 }
 </script>
