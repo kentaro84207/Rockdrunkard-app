@@ -1,6 +1,6 @@
 <template>
-  <v-container fluid grid-list-lg mb-12 pb-12>
-    <v-layout row wrap>
+  <v-container fluid grid-list-lg mb-12 pb-10>
+    <v-layout row wrap pb-6>
       <v-flex xs12 sm8 md6>
         <v-img
           src="https://cdn.vuetifyjs.com/images/parallax/material2.jpg"
@@ -13,9 +13,6 @@
           <ProblemCard v-for="problem in problems" :problem="problem" :key="problem.pid"></ProblemCard>
         </ul>
       </v-flex>
-      <v-btn fixed dark fab bottom right color="pink" class="mb-12" @click="refresh">
-        <v-icon>refresh</v-icon>
-      </v-btn>
     </v-layout>
   </v-container>
 </template>
@@ -48,10 +45,6 @@ export default class Top extends Vue {
     } catch (error) {
       return false
     }
-  }
-
-  refresh() {
-    location.reload(true)
   }
 }
 </script>
