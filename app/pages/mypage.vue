@@ -55,7 +55,7 @@ export default class Setting extends Vue {
 
   private get point() {
     try {
-      return this.$store.state.user.user.point
+      return Math.round(this.$store.state.user.user.point)
     } catch (error) {
       return false
     }

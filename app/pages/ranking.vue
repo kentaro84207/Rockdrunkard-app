@@ -13,7 +13,7 @@
                 <v-list-item-title v-text="item.name"></v-list-item-title>
               </v-flex>
               <v-flex xs3 pa-0>
-                <v-list-item-title v-text="item.point" class="text-right"></v-list-item-title>
+                <v-list-item-title v-text="Math.round(item.point)" class="text-right"></v-list-item-title>
               </v-flex>
             </v-list-item-content>
           </v-list-item>

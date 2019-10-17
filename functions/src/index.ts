@@ -35,31 +35,39 @@ async function updateUserPoints(uid: string, point: number) {
 
 // ユーザの総得点を計算
 // TODO: FIX any
-async function getTotalPoint(querySnapshot: any, uid: string) {
-  const pointArray: number[] = []
-  const { size } = querySnapshot
-  if (size) {
-    querySnapshot.docs.forEach(async (queryDocumentSnapshot: any) => {
-      const problem = queryDocumentSnapshot.data()
-      if (problem.problemRef) {
-        const point = await fetchPoint(problem.problemRef)
+async function getTotalPoint(userSnapshot: any) {
+  userSnapshot.docs.forEach(async (userDocumentSnapshot: any) => {
+    const pointArray: number[] = []
+    const user = userDocumentSnapshot.data()
+    const { uid } = user
+    const problemSnapshot = await db
+      .collection('users')
+      .doc(uid)
+      .collection('ascents')
+      .where('year', '==', year)
+      .where('month', '==', month)
+      .get()
+    const { size } = problemSnapshot
+    problemSnapshot.docs.forEach(async (problemDocumentSnapshot: any) => {
+      const problem = problemDocumentSnapshot.data()
+      const { problemRef } = problem
+      if (problemRef) {
+        const point = await fetchPoint(problemRef)
         pointArray.push(point)
       }
       if (pointArray.length === size) {
-        const totalPoint = pointArray.reduce((a, x) => a + x)
+        const totalPoint = pointArray.reduce((a, x) => a + x, 0)
         await updateUserPoints(uid, totalPoint)
       }
     })
-  } else {
-    await updateUserPoints(uid, 0)
-  }
+  })
 }
 
 export const updatePoint = functions
   .region('asia-northeast1')
   .firestore.document('problems/{problemId}/ascent_users/{uid}')
   .onWrite(async (change, context) => {
-    const { problemId, uid } = context.params
+    const { problemId } = context.params
     const problemRef = db.collection('problems').doc(problemId)
     const documentSnapshot = await problemRef.get()
     const data = documentSnapshot.data()
@@ -73,12 +81,6 @@ export const updatePoint = functions
     await batch.commit()
 
     // update user_points
-    const querySnapshot = await db
-      .collection('users')
-      .doc(uid)
-      .collection('ascents')
-      .where('year', '==', year)
-      .where('month', '==', month)
-      .get()
-    await getTotalPoint(querySnapshot, uid)
+    const querySnapshot = await db.collection('users').get()
+    await getTotalPoint(querySnapshot)
   })
