@@ -1,21 +1,21 @@
 <template>
   <li class="pb-6">
     <v-layout>
-      <v-flex xs8>
+      <v-flex xs12>
         <v-card
           :color="difficultyColor[problem.difficulty]"
           raised
           :class="problem.difficulty === 7 ? 'white--text' : 'black--text'"
         >
           <v-layout>
-            <v-flex xs4 d-flex align-center>
+            <v-flex xs3 d-flex align-center>
               <v-card-title primary-title class="pl-3 py-0 pr-0">
                 <div>
                   <div class="title">No.{{ problem.num }}</div>
                 </div>
               </v-card-title>
             </v-flex>
-            <v-flex xs8>
+            <v-flex xs5>
               <v-card-title primary-title class="pl-3 py-0">
                 <div>
                   <div class="title">{{ problem.setted_by }}</div>
@@ -23,22 +23,23 @@
                 </div>
               </v-card-title>
             </v-flex>
+            <v-flex xs4 px-0>
+              <div class="py-0">
+                <v-switch
+                  pt-0
+                  color="success"
+                  :dark="problem.difficulty === 7"
+                  hide-details
+                  class="mt-3"
+                  inset
+                  v-model="ascentStatus"
+                  :label="labelText"
+                  @change="switchSentProblem(problem)"
+                ></v-switch>
+              </div>
+            </v-flex>
           </v-layout>
         </v-card>
-      </v-flex>
-      <v-flex xs4>
-        <div class="py-0">
-          <v-switch
-            pt-0
-            color="primary"
-            hide-details
-            class="mt-3"
-            inset
-            v-model="ascentStatus"
-            :label="labelText"
-            @change="switchSentProblem(problem)"
-          ></v-switch>
-        </div>
       </v-flex>
     </v-layout>
   </li>
@@ -78,7 +79,7 @@ export default class ProblemCard extends Vue {
   }
 
   private get labelText() {
-    return this.ascentStatus ? '完登' : '未完登'
+    return this.ascentStatus ? '完登！' : '未完登'
   }
 
   // the number of ascents
@@ -144,6 +145,8 @@ export default class ProblemCard extends Vue {
         created_at: firebase.firestore.FieldValue.serverTimestamp()
       })
       batch.set(userRef, {
+        uid: this.user.uid,
+        userRef: firestore.collection('users').doc(this.user.uid),
         created_at: firebase.firestore.FieldValue.serverTimestamp()
       })
       await batch.commit()

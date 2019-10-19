@@ -1,7 +1,6 @@
 <template>
-  <v-container fluid grid-list-lg mb-10 pb-6>
-    <v-layout row wrap>
-      <div>{{ user }}</div>
+  <v-container fluid grid-list-lg mb-12 pb-10>
+    <v-layout row wrap pb-6>
       <v-flex xs12 sm8 md6>
         <v-img
           src="https://cdn.vuetifyjs.com/images/parallax/material2.jpg"
@@ -40,28 +39,11 @@ export default class Top extends Vue {
     await this.$store.dispatch('problem/getProblems', date)
   }
 
-  private get user() {
-    try {
-      return this.$store.state.user.user.displayName
-    } catch (error) {
-      return false
-    }
-  }
-
   private get problems() {
     try {
       return this.$store.state.problem.problems
     } catch (error) {
       return false
-    }
-  }
-
-  async signOut() {
-    try {
-      await this.$store.dispatch('user/signOut')
-      this.$router.replace('/')
-    } catch (error) {
-      console.log('Sign Out error', error)
     }
   }
 }
