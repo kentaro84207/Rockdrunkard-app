@@ -99,7 +99,7 @@ const config: Configuration = {
           r2: colors.orange.darken1,
           r3: colors.red.darken1,
           r4: colors.green.darken3,
-          r5: colors.grey.lighten5,
+          r5: '#fff',
           r6: colors.grey.lighten1,
           r7: colors.grey.darken4,
         }

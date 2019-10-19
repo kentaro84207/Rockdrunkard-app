@@ -4,28 +4,33 @@
       <v-flex xs12>
         <v-card
           :color="difficultyColor[problem.difficulty]"
-          raised
+          flat
           :class="problem.difficulty === 7 ? 'white--text' : 'black--text'"
         >
           <v-layout>
-            <v-flex xs3 d-flex align-center>
+            <v-flex xs3 d-flex align-center pr-0 class="h-50">
               <v-card-title primary-title class="pl-3 py-0 pr-0">
                 <div>
-                  <div class="title">No.{{ problem.num }}</div>
+                  <div class="subtitle-1">No.{{ problem.num }}</div>
                 </div>
               </v-card-title>
             </v-flex>
-            <v-flex xs5>
+            <v-flex xs4 d-flex align-center px-0 class="h-50">
               <v-card-title primary-title class="pl-3 py-0">
-                <div>
-                  <div class="title">{{ problem.setted_by }}</div>
-                  <div class="body-1">完登数：{{ this.ascentLength }}</div>
+                <div class="subtitle-1">{{ problem.setted_by }}</div>
+              </v-card-title>
+            </v-flex>
+            <v-flex xs3 d-flex align-center px-0 class="h-50">
+              <v-card-title primary-title class="pl-3 py-0">
+                <div class="body-1">
+                  <v-icon :color="problem.difficulty === 7 ? 'white' : 'gray'" class="mb-1 f-30">how_to_reg</v-icon>
+                  ×{{ this.ascentLength }}
                 </div>
               </v-card-title>
             </v-flex>
-            <v-flex xs4 px-0>
+            <v-flex xs2 d-flex align-center pt-3 px-0 class="h-50">
               <div class="py-0">
-                <v-switch
+                <!-- <v-switch
                   pt-0
                   color="success"
                   :dark="problem.difficulty === 7"
@@ -35,7 +40,15 @@
                   v-model="ascentStatus"
                   :label="labelText"
                   @change="switchSentProblem(problem)"
-                ></v-switch>
+                ></v-switch>-->
+                <v-checkbox
+                  pt-0
+                  :color="problem.difficulty === 5 ? '#90A4AE' : 'white'"
+                  :dark="problem.difficulty === 7"
+                  class="f-30"
+                  v-model="ascentStatus"
+                  @change="switchSentProblem(problem)"
+                ></v-checkbox>
               </div>
             </v-flex>
           </v-layout>
@@ -102,11 +115,10 @@ export default class ProblemCard extends Vue {
   }
 
   switchSentProblem(problem) {
-    if (
-      confirm(
-        `課題${problem.num}を${this.labelText} に変更してもよろしいですか？`
-      )
-    ) {
+    const confirmText = this.ascentStatus
+      ? `No.${problem.num}登れた`
+      : `No.${problem.num}登れてなかった`
+    if (confirm(confirmText)) {
       this.updateDb(problem)
     } else {
       setTimeout(() => {
@@ -166,4 +178,20 @@ export default class ProblemCard extends Vue {
 }
 </script>
 <style lang='scss' scoped >
+.h-50 {
+  max-height: 50px;
+}
+
+.f-30 {
+  * {
+    font-size: 30px;
+  }
+}
+
+.mb-off {
+  *,
+  .v-input__slot {
+    margin-bottom: 0;
+  }
+}
 </style>
