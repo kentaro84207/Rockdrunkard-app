@@ -83,6 +83,7 @@ const config: Configuration = {
   */
   vuetify: {
     customVariables: ['~/assets/variables.scss'],
+    treeShake: true,
     theme: {
       themes: {
         light: {
@@ -93,13 +94,14 @@ const config: Configuration = {
           warning: colors.amber.base,
           error: colors.deepOrange.accent4,
           success: colors.purple.darken4,
+          done: colors.blueGrey.lighten5,
           bg: colors.lightBlue.lighten5,
           r0: colors.blue.darken2,
           r1: colors.yellow.darken2,
           r2: colors.orange.darken1,
           r3: colors.red.darken1,
           r4: colors.green.darken3,
-          r5: colors.grey.lighten5,
+          r5: '#fff',
           r6: colors.grey.lighten1,
           r7: colors.grey.darken4,
         }

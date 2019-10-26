@@ -3,13 +3,13 @@
     <v-layout row wrap pb-6>
       <v-flex xs12 sm8 md6>
         <v-img
-          src="https://cdn.vuetifyjs.com/images/parallax/material2.jpg"
-          class="grey lighten-2"
+          src="https://firebasestorage.googleapis.com/v0/b/rockdrunkard-app.appspot.com/o/test.jpg?alt=media&token=0efc3c53-0e53-48e2-a6db-357b80f11774"
+          class="grey lighten-2 is-fixed"
           width="100%"
         ></v-img>
       </v-flex>
       <v-flex xs12 sm8 md6>
-        <ul class="pl-0">
+        <ul class="pl-0 mt-large">
           <ProblemCard v-for="problem in problems" :problem="problem" :key="problem.pid"></ProblemCard>
         </ul>
       </v-flex>
@@ -50,4 +50,14 @@ export default class Top extends Vue {
 </script>
 
 <style lang='scss' scoped >
+.is-fixed {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1;
+}
+
+.mt-large {
+  margin-top: 40vh;
+}
 </style>
