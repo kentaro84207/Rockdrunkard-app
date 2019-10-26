@@ -94,6 +94,7 @@ const config: Configuration = {
           warning: colors.amber.base,
           error: colors.deepOrange.accent4,
           success: colors.purple.darken4,
+          done: colors.blueGrey.lighten5,
           bg: colors.lightBlue.lighten5,
           r0: colors.blue.darken2,
           r1: colors.yellow.darken2,

@@ -3,9 +3,9 @@
     <v-layout>
       <v-flex xs12>
         <v-card
-          :color="difficultyColor[problem.difficulty]"
+          :color="ascentStatus ? 'done' : difficultyColor[problem.difficulty]"
           flat
-          :class="problem.difficulty === 7 ? 'white--text' : ''"
+          :class="problem.difficulty === 7 && !ascentStatus ? 'white--text' : ''"
         >
           <v-layout>
             <v-flex xs3 d-flex align-center pr-0 class="h-50">
@@ -23,7 +23,10 @@
             <v-flex xs3 d-flex align-center px-0 class="h-50">
               <v-card-title primary-title class="pl-3 py-0">
                 <div class="body-1">
-                  <v-icon :color="problem.difficulty === 7 ? 'white' : 'gray'" class="mb-1 f-30">how_to_reg</v-icon>
+                  <v-icon
+                    :color="problem.difficulty === 7 && !ascentStatus ? 'white' : 'gray'"
+                    class="mb-1 f-30"
+                  >how_to_reg</v-icon>
                   ×{{ this.ascentLength }}
                 </div>
               </v-card-title>
@@ -32,7 +35,7 @@
               <div class="py-0">
                 <v-checkbox
                   pt-0
-                  :color="problem.difficulty === 5 ? '#90A4AE' : 'white'"
+                  :color="ascentStatus ? 'success' : 'white'"
                   :dark="problem.difficulty === 7"
                   class="f-30"
                   v-model="ascentStatus"
