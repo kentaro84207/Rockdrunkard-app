@@ -5,7 +5,7 @@
         <v-card
           :color="difficultyColor[problem.difficulty]"
           flat
-          :class="problem.difficulty === 7 ? 'white--text' : 'black--text'"
+          :class="problem.difficulty === 7 ? 'white--text' : ''"
         >
           <v-layout>
             <v-flex xs3 d-flex align-center pr-0 class="h-50">
@@ -30,17 +30,6 @@
             </v-flex>
             <v-flex xs2 d-flex align-center pt-3 px-0 class="h-50">
               <div class="py-0">
-                <!-- <v-switch
-                  pt-0
-                  color="success"
-                  :dark="problem.difficulty === 7"
-                  hide-details
-                  class="mt-3"
-                  inset
-                  v-model="ascentStatus"
-                  :label="labelText"
-                  @change="switchSentProblem(problem)"
-                ></v-switch>-->
                 <v-checkbox
                   pt-0
                   :color="problem.difficulty === 5 ? '#90A4AE' : 'white'"
