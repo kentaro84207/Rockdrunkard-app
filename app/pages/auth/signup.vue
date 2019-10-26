@@ -113,15 +113,19 @@ export default class Signup extends Vue {
         await firebaseAuth
           .createUserWithEmailAndPassword(this.email, this.password)
           .then(cred => {
-            firestore
-              .collection('users')
-              .doc(cred.user.uid)
-              .set({
-                nickname: this.nickname,
-                email: cred.user.email,
-                uid: cred.user.uid,
-                point: 0
-              })
+            const batch = firestore.batch()
+            const userRef = firestore.collection('users').doc(cred.user.uid)
+            const nicknameRef = firestore.collection('nicknames').doc(this.nickname)
+            batch.set(userRef, {
+              nickname: this.nickname,
+              email: cred.user.email,
+              uid: cred.user.uid,
+              point: 0
+            })
+            batch.set(nicknameRef, {
+              uid: cred.user.uid
+            })
+            batch.commit()
           })
           .then(() => {
             this.$router.replace('/')
