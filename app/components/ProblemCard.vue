@@ -3,9 +3,9 @@
     <v-layout>
       <v-flex xs12>
         <v-card
-          :color="ascentStatus ? 'done' : difficultyColor[problem.difficulty]"
+          :color="difficultyColor[problem.difficulty]"
           flat
-          :class="problem.difficulty === 7 && !ascentStatus ? 'white--text' : ''"
+          :class="problem.difficulty === 7 && !ascentStatus ? 'white--text' : ascentStatus ? 'is-done' : ''"
         >
           <v-layout>
             <v-flex xs3 d-flex align-center pr-0 class="h-50">
@@ -35,7 +35,7 @@
               <div class="py-0">
                 <v-checkbox
                   pt-0
-                  :color="ascentStatus ? 'success' : 'white'"
+                  :color="ascentStatus ? 'r7' : 'white'"
                   :dark="problem.difficulty === 7"
                   class="f-30"
                   v-model="ascentStatus"
@@ -184,6 +184,33 @@ export default class ProblemCard extends Vue {
   *,
   .v-input__slot {
     margin-bottom: 0;
+  }
+}
+
+.is-done {
+  &.r0 {
+    background-color: rgba(25, 118, 210, 0.4) !important;
+  }
+  &.r1 {
+    background-color: rgba(251, 192, 45, 0.4) !important;
+  }
+  &.r2 {
+    background-color: rgba(251, 140, 0, 0.4) !important;
+  }
+  &.r3 {
+    background-color: rgba(229, 57, 53, 0.4) !important;
+  }
+  &.r4 {
+    background-color: rgba(46, 125, 50, 0.4) !important;
+  }
+  &.r5 {
+    background-color: rgba(255, 255, 255, 0.4) !important;
+  }
+  &.r6 {
+    background-color: rgba(189, 189, 189, 0.4) !important;
+  }
+  &.r7 {
+    background-color: rgba(33, 33, 33, 0.4) !important;
   }
 }
 </style>

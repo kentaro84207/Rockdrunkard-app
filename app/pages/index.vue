@@ -58,6 +58,6 @@ export default class Top extends Vue {
 }
 
 .mt-large {
-  margin-top: 40vh;
+  margin-top: 70vw;
 }
 </style>
