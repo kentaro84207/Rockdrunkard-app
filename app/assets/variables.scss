@@ -3,3 +3,11 @@
     padding: 0 1px;
   }
 }
+
+.v-application  {
+  .v-list-item__title{
+    a {
+      color: rgba(0, 0, 0, 0.87) !important;
+    }
+  }
+}
