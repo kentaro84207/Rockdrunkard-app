@@ -27,7 +27,7 @@
           <v-list-item>
             <v-list-item-content>
               <v-flex xs12 mb-0>
-                <v-list-item-title class="text-right caption" @click="signOut">ログアウト</v-list-item-title>
+                <v-list-item-title class="text-right caption"><nuxt-link to="/others">その他</nuxt-link></v-list-item-title>
               </v-flex>
             </v-list-item-content>
           </v-list-item>
@@ -58,17 +58,6 @@ export default class Setting extends Vue {
       return Math.round(this.$store.state.user.user.point)
     } catch (error) {
       return false
-    }
-  }
-
-  async signOut() {
-    if (confirm('ログアウトしますか？')) {
-      try {
-        await this.$store.dispatch('user/signOut')
-        this.$router.replace('/')
-      } catch (error) {
-        console.log('Sign Out error', error)
-      }
     }
   }
 }
