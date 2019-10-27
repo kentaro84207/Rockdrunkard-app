@@ -65,12 +65,41 @@
           height="50"
           class="font-weight-bold black--text"
           @click="signupWithEmailAndPassword()"
-        >登録する</v-btn>
+        >規約に同意して登録</v-btn>
         <div class="v-messages theme--light error--text px-3 mt-2" v-if="submitError">
           <div class="v-messages__wrapper">
             <div class="v-messages__message">{{ submitErrorMessage }}</div>
           </div>
         </div>
+      </v-col>
+      <v-col cols="12" sm="6" class="pt-0 pb-8">
+        <p class="grey--text">※会員登録により以下に同意したものとさせていただきます。</p>
+        <v-dialog v-model="dialogTerms" scrollable max-width="90%">
+          <template v-slot:activator="{ on }">
+            <p class="grey--text underline" v-on="on">利用規約</p>
+          </template>
+          <v-card>
+            <v-card-text style="height: 80%;">
+              <Terms></Terms>
+            </v-card-text>
+            <v-card-actions>
+              <v-btn color="black" text @click="dialogTerms = false">閉じる</v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-dialog>
+        <v-dialog v-model="dialogPrivacy" scrollable max-width="90%">
+          <template v-slot:activator="{ on }">
+            <p class="grey--text underline" v-on="on">プライバシーポリシー</p>
+          </template>
+          <v-card>
+            <v-card-text style="height: 80%;">
+              <Privacy></Privacy>
+            </v-card-text>
+            <v-card-actions>
+              <v-btn color="black" text @click="dialogPrivacy = false">閉じる</v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-dialog>
       </v-col>
     </v-container>
   </v-form>
@@ -80,9 +109,15 @@
 import { Component, Vue } from 'vue-property-decorator'
 import { firebaseAuth } from '~/plugins/firebase'
 import firestore from '~/plugins/firestore'
+import Terms from '~/components/Terms.vue'
+import Privacy from '~/components/Privacy.vue'
 
 @Component({
-  layout: 'auth'
+  layout: 'auth',
+  components: {
+    Terms,
+    Privacy
+  }
 })
 export default class Signup extends Vue {
   // TODO: loginと共通化
@@ -102,6 +137,10 @@ export default class Signup extends Vue {
   submitError: boolean = false
   submitErrorMessage: string = ''
 
+  // dialog
+  dialogPrivacy: boolean = false
+  dialogTerms: boolean = false
+
   private get nicknameIsValid() {
     return this.$store.state.nickname.isValid
   }
@@ -115,7 +154,9 @@ export default class Signup extends Vue {
           .then(cred => {
             const batch = firestore.batch()
             const userRef = firestore.collection('users').doc(cred.user.uid)
-            const nicknameRef = firestore.collection('nicknames').doc(this.nickname)
+            const nicknameRef = firestore
+              .collection('nicknames')
+              .doc(this.nickname)
             batch.set(userRef, {
               nickname: this.nickname,
               email: cred.user.email,
@@ -177,4 +218,7 @@ export default class Signup extends Vue {
 }
 </script>
 <style lang='scss' scoped >
+.underline {
+  text-decoration: underline;
+}
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <v-container fluid grid-list-lg>
+  <v-container fluid grid-list-lg mb-10 pb-12>
     <v-layout row wrap pa-5>
       <h1 class="headline mb-6">利用規約</h1>
       <div>
