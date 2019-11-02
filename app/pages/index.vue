@@ -1,16 +1,20 @@
 <template>
-  <v-container fluid grid-list-lg mb-12 pb-10>
-    <v-layout row wrap pb-6>
-      <v-flex xs12 sm8 md6>
+  <v-container fluid grid-list-lg>
+    <v-layout row wrap pb-8>
+      <v-flex xs12>
         <v-img
           src="https://firebasestorage.googleapis.com/v0/b/rockdrunkard-app.appspot.com/o/test.jpg?alt=media&token=0efc3c53-0e53-48e2-a6db-357b80f11774"
-          class="grey lighten-2 is-fixed"
+          class="grey lighten-2"
           width="100%"
         ></v-img>
       </v-flex>
-      <v-flex xs12 sm8 md6>
-        <ul class="pl-0 mt-large">
-          <ProblemCard v-for="problem in problems" :problem="problem" :key="problem.pid"></ProblemCard>
+      <v-flex xs12>
+        <ul class="pl-0 smb-5">
+          <IndexCard
+            v-for="difficulty in difficultis"
+            :difficulty="difficulty"
+            :key="difficulty.num"
+          ></IndexCard>
         </ul>
       </v-flex>
     </v-layout>
@@ -20,11 +24,11 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
 import firestore from '~/plugins/firestore'
-import ProblemCard from '~/components/ProblemCard.vue'
+import IndexCard from '~/components/IndexCard.vue'
 
 @Component({
   components: {
-    ProblemCard
+    IndexCard
   }
 })
 export default class Top extends Vue {
@@ -39,25 +43,19 @@ export default class Top extends Vue {
     await this.$store.dispatch('problem/getProblems', date)
   }
 
-  private get problems() {
-    try {
-      return this.$store.state.problem.problems
-    } catch (error) {
-      return false
-    }
+  private get difficultis() {
+    const difficultyObj = this.$store.state.problem.difficulty
+    return Object.entries(difficultyObj).map(([key, value]) => ({
+      num: key
+    }))
   }
 }
 </script>
 
 <style lang='scss' scoped >
-.is-fixed {
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 1;
-}
-
-.mt-large {
-  margin-top: 70vw;
+@media screen and (max-width: 374px) {
+  .smb-5 {
+    margin-bottom: 5vh;
+  }
 }
 </style>

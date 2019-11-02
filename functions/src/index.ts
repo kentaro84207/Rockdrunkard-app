@@ -24,9 +24,12 @@ async function updateUserPoints(uid: string, point: number) {
   await db
     .collection('user_points')
     .doc(uid)
-    .set({
-      [yearMonth]: point
-    })
+    .set(
+      {
+        [yearMonth]: point
+      },
+      { merge: true }
+    )
   await db
     .collection('users')
     .doc(uid)

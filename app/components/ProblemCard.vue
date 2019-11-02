@@ -1,5 +1,5 @@
 <template>
-  <li class="pb-6">
+  <li class="pb-6" :style="active">
     <v-layout>
       <v-flex xs12>
         <v-card
@@ -72,6 +72,16 @@ export default class ProblemCard extends Vue {
       return this.$store.state.user.user
     } catch (error) {
       return false
+    }
+  }
+
+  private get active() {
+    const { difficulty } = this.$route.params
+    const isActive = this.problem.difficulty === Number(difficulty)
+    if (isActive) {
+      return {}
+    } else {
+      return { display: 'none' }
     }
   }
 
