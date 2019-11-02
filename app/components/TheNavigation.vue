@@ -14,9 +14,9 @@
         <v-icon>account_circle</v-icon>
       </v-btn>
     </v-bottom-navigation>
-    <v-btn fixed dark fab bottom right color="pink" class="mb-12" @click="refresh" v-if="path">
+    <!-- <v-btn fixed dark fab bottom right color="pink" class="mb-12" @click="refresh" v-if="path">
       <v-icon>refresh</v-icon>
-    </v-btn>
+    </v-btn> -->
   </v-layout>
 </template>
 
@@ -27,9 +27,9 @@ import { Component, Vue } from 'vue-property-decorator'
 export default class navigation extends Vue {
   bottomNav: string = 'list'
 
-  refresh() {
-    location.reload(true)
-  }
+  // refresh() {
+  //   location.reload(true)
+  // }
 
   private get path() {
     return this.$route.path !== '/'

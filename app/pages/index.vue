@@ -3,12 +3,13 @@
     <template v-if="isLoaded">
       <v-layout row wrap pb-8>
         <v-flex xs12>
-          <v-img
-            :src="url"
-            :on="loaded"
-            class="grey lighten-2"
-            width="100%"
-          ></v-img>
+          <v-img :src="url" class="grey lighten-2" width="100%" min-height="250">
+            <template v-slot:placeholder>
+              <v-row class="fill-height ma-0" align="center" justify="center">
+                <v-progress-circular indeterminate color="grey lighten-5"></v-progress-circular>
+              </v-row>
+            </template>
+          </v-img>
         </v-flex>
         <v-flex xs12>
           <ul class="pl-0 smb-5">
@@ -58,7 +59,7 @@ export default class Top extends Vue {
   mounted(): void {
     setTimeout(() => {
       this.isLoaded = true
-    }, 1500);
+    }, 1500)
   }
 
   private get difficultis() {
