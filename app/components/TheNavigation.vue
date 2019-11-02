@@ -14,7 +14,7 @@
         <v-icon>account_circle</v-icon>
       </v-btn>
     </v-bottom-navigation>
-    <v-btn fixed dark fab bottom right color="pink" class="mb-12" @click="refresh">
+    <v-btn fixed dark fab bottom right color="pink" class="mb-12" @click="refresh" v-if="path">
       <v-icon>refresh</v-icon>
     </v-btn>
   </v-layout>
@@ -29,6 +29,10 @@ export default class navigation extends Vue {
 
   refresh() {
     location.reload(true)
+  }
+
+  private get path() {
+    return this.$route.path !== '/'
   }
 }
 </script>
