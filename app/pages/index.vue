@@ -7,6 +7,8 @@
           class="grey lighten-2"
           width="100%"
         ></v-img>
+        <template v-slot:placeholder>
+        </template>
       </v-flex>
       <v-flex xs12>
         <ul class="pl-0 smb-5">
