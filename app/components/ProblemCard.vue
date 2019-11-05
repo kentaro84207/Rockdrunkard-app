@@ -5,7 +5,7 @@
         <v-card
           :color="difficultyColor[problem.difficulty]"
           flat
-          :class="whiteTextArray.includes(problem.difficulty) && !ascentStatus ? 'white--text' : ascentStatus ? 'is-done grey--text' : ''"
+          :class="whiteTextArray.includes(problem.difficulty) && !ascentStatus ? 'white--text' : ascentStatus ? 'is-done grey--text text--darken-1' : ''"
         >
           <v-layout>
             <v-flex xs3 d-flex align-center pr-0 class="h-50">
