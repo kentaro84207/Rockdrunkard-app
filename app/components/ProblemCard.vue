@@ -5,7 +5,7 @@
         <v-card
           :color="difficultyColor[problem.difficulty]"
           flat
-          :class="problem.difficulty === 7 && !ascentStatus ? 'white--text' : ascentStatus ? 'is-done' : ''"
+          :class="whiteTextArray.includes(problem.difficulty) && !ascentStatus ? 'white--text' : ascentStatus ? 'is-done grey--text' : ''"
         >
           <v-layout>
             <v-flex xs3 d-flex align-center pr-0 class="h-50">
@@ -24,7 +24,7 @@
               <v-card-title primary-title class="pl-3 py-0">
                 <div class="body-1">
                   <v-icon
-                    :color="problem.difficulty === 7 && !ascentStatus ? 'white' : 'gray'"
+                    :color="whiteTextArray.includes(problem.difficulty) && !ascentStatus ? 'white' : ascentStatus ? 'grey' : ''"
                     class="mb-1 f-30"
                   >how_to_reg</v-icon>
                   ×{{ this.ascentLength }}
@@ -36,7 +36,7 @@
                 <v-checkbox
                   pt-0
                   :color="ascentStatus ? 'r7' : 'white'"
-                  :dark="problem.difficulty === 7"
+                  :dark="whiteTextArray.includes(problem.difficulty)"
                   class="f-30"
                   v-model="ascentStatus"
                   @change="switchSentProblem(problem)"
@@ -62,6 +62,7 @@ export default class ProblemCard extends Vue {
   @Prop() problem!: Problem
 
   ascentStatus: boolean = false
+  whiteTextArray: number[] = [3, 4, 7]
 
   created() {
     this.switchStatus()

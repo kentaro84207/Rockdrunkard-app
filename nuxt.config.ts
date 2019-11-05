@@ -96,7 +96,7 @@ const config: Configuration = {
           success: colors.purple.darken4,
           done: colors.blueGrey.lighten5,
           bg: colors.lightBlue.lighten5,
-          r0: colors.blue.darken2,
+          r0: colors.blue.lighten2,
           r1: colors.yellow.darken2,
           r2: colors.orange.darken1,
           r3: colors.red.darken1,

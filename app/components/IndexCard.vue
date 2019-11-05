@@ -4,7 +4,7 @@
       <v-flex xs12>
         <v-card
           :color="difficultyColor[difficulty.num]"
-          :class="difficulty.num === '7' ? 'white--text' : 'normal'"
+          :class="whiteTextArray.includes(Number(difficulty.num)) ? 'white--text' : 'normal'"
           flat
           :to="`/problems/${difficulty.num}`"
           :ripple="false"
@@ -16,7 +16,7 @@
               </v-card-title>
             </v-flex>
             <v-flex xs2 d-flex align-center pr-0 class="h-5">
-              <v-icon :dark="difficulty.num === '7'">keyboard_arrow_right</v-icon>
+              <v-icon :dark="whiteTextArray.includes(Number(difficulty.num))">keyboard_arrow_right</v-icon>
             </v-flex>
           </v-layout>
         </v-card>
@@ -34,6 +34,7 @@ import { resolve } from 'dns'
 @Component({})
 export default class ProblemCard extends Vue {
   @Prop() difficulty!: object
+  whiteTextArray: number[] = [3, 4, 7]
 
   private get difficultyColor() {
     return this.$store.state.problem.difficultyColor
