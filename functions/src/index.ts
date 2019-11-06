@@ -75,7 +75,7 @@ export const updatePoint = functions
     const documentSnapshot = await problemRef.get()
     const data = documentSnapshot.data()
     const ascentUsers = data ? data.ascent_users : []
-    const newPoint = ascentUsers !== [] ? 100 / ascentUsers.length : 100
+    const newPoint = ascentUsers.length ? 100 / ascentUsers.length : 100
     const batch = db.batch()
     batch.update(problemRef, {
       point: newPoint

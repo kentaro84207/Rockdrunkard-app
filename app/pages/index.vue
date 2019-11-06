@@ -1,29 +1,21 @@
 <template>
   <v-container fluid grid-list-lg>
-    <template v-if="isLoaded">
-      <v-layout row wrap pb-8>
-        <v-flex xs12>
-          <v-carousel height="250" hide-delimiter-background light>
-            <v-carousel-item v-for="(image,i) in images" :key="i" :src="image.src">
-            </v-carousel-item>
-          </v-carousel>
-        </v-flex>
-        <v-flex xs12>
-          <ul class="pl-0 smb-5">
-            <IndexCard
-              v-for="difficulty in difficultis"
-              :difficulty="difficulty"
-              :key="difficulty.num"
-            ></IndexCard>
-          </ul>
-        </v-flex>
-      </v-layout>
-    </template>
-    <template v-else>
-      <v-layout justify-center align-center class="pt-h px-5">
-        <v-progress-linear indeterminate rounded color="primary"></v-progress-linear>
-      </v-layout>
-    </template>
+    <v-layout row wrap pb-8>
+      <v-flex xs12>
+        <v-carousel height="250" hide-delimiter-background light>
+          <v-carousel-item v-for="(image,i) in images" :key="i" :src="image.src"></v-carousel-item>
+        </v-carousel>
+      </v-flex>
+      <v-flex xs12>
+        <ul class="pl-0 smb-5">
+          <IndexCard
+            v-for="difficulty in difficultis"
+            :difficulty="difficulty"
+            :key="difficulty.num"
+          ></IndexCard>
+        </ul>
+      </v-flex>
+    </v-layout>
   </v-container>
 </template>
 
@@ -38,8 +30,6 @@ import IndexCard from '~/components/IndexCard.vue'
   }
 })
 export default class Top extends Vue {
-  isLoaded: boolean = false
-
   images: object[] = [
     {
       src:
@@ -60,12 +50,6 @@ export default class Top extends Vue {
       month: month
     }
     await this.$store.dispatch('problem/getProblems', date)
-  }
-
-  mounted(): void {
-    setTimeout(() => {
-      this.isLoaded = true
-    }, 1500)
   }
 
   private get difficultis() {

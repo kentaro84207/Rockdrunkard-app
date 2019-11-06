@@ -12,7 +12,7 @@
           <v-layout>
             <v-flex xs10 d-flex align-center pr-0 class="h-5">
               <v-card-title primary-title class="pl-3 py-0 pr-0">
-                  <div class="subtitle-1 bold">{{problemNum}}</div>
+                <div class="subtitle-1 bold">{{problemNum}}</div>
               </v-card-title>
             </v-flex>
             <v-flex xs2 d-flex align-center pr-0 class="h-5">
@@ -49,12 +49,14 @@ export default class ProblemCard extends Vue {
   }
 
   private get problemNum() {
-    const array = this.problems.filter(v => v.difficulty === Number(this.difficulty['num']))
+    const array = this.problems.filter(
+      v => v.difficulty === Number(this.difficulty['num'])
+    )
     const nums = array.map(v => v.num)
     const first = nums[0]
     const last = nums.slice(-1)[0]
 
-    return `No.${first} ~ ${last}`
+    return first && last ? `No.${first} ~ ${last}` : ''
   }
 }
 </script>
