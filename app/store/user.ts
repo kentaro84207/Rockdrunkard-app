@@ -49,7 +49,7 @@ export const actions: ActionTree<State, State> = {
   },
 
   async updateUserPoint({ commit }, payload) {
-    const userRef = firestore.collection('users').doc(payload.uid)
+    const userRef = firestore.collection('users').doc(payload)
     const userSnap = await userRef.get()
     const userData = userSnap.data()
     const userPonint: number = userData.point
