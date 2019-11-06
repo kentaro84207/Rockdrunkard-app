@@ -4,10 +4,18 @@
   }
 }
 
-.v-application  {
-  .v-list-item__title{
+.v-application {
+  .v-list-item__title {
     a {
       color: rgba(0, 0, 0, 0.87) !important;
     }
   }
+}
+
+.v-application--is-ltr .v-window__prev {
+  left: -10px !important;
+}
+
+.v-application--is-ltr .v-window__next {
+  right: -10px !important;
 }

@@ -3,7 +3,7 @@
     <v-layout row wrap>
       <v-flex xs12 sm8 md6>
         <v-list>
-          <v-subheader>現在の順位（定期的に更新されます）</v-subheader>
+          <v-subheader>現在の順位<span class="caption">（ラグがある場合があります）</span></v-subheader>
           <v-list-item v-for="(item, i) in userPoints" :key="item.name">
             <v-list-item-content>
               <v-flex xs3 pa-0>
