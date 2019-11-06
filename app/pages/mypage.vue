@@ -10,14 +10,17 @@
                 <v-list-item-title>ニックネーム</v-list-item-title>
               </v-flex>
               <v-flex xs6>
-                <v-list-item-title class="text-right">{{ user }}</v-list-item-title>
+                <v-list-item-title class="text-right">{{ user.nickname }}</v-list-item-title>
               </v-flex>
             </v-list-item-content>
           </v-list-item>
           <v-list-item>
             <v-list-item-content>
               <v-flex xs6 mb-0>
-                <v-list-item-title>現在のポイント</v-list-item-title>
+                <v-list-item-title @click="updatePoint">
+                  現在のポイント
+                  <v-icon class="icon">autorenew</v-icon>
+                </v-list-item-title>
               </v-flex>
               <v-flex xs6>
                 <v-list-item-title class="text-right">{{ point }}</v-list-item-title>
@@ -27,7 +30,9 @@
           <v-list-item>
             <v-list-item-content>
               <v-flex xs12 mb-0>
-                <v-list-item-title class="text-right caption"><nuxt-link to="/others">その他</nuxt-link></v-list-item-title>
+                <v-list-item-title class="text-right caption">
+                  <nuxt-link to="/others">その他</nuxt-link>
+                </v-list-item-title>
               </v-flex>
             </v-list-item-content>
           </v-list-item>
@@ -47,7 +52,7 @@ import firestore from '~/plugins/firestore'
 export default class Setting extends Vue {
   private get user() {
     try {
-      return this.$store.state.user.user.nickname
+      return this.$store.state.user.user
     } catch (error) {
       return false
     }
@@ -60,8 +65,17 @@ export default class Setting extends Vue {
       return false
     }
   }
+
+  updatePoint() {
+    this.$store.dispatch('user/updateUserPoint', this.user.uid)
+  }
 }
 </script>
 
 <style lang='scss' scoped >
+.icon {
+  font-size: 20px;
+  margin-bottom: 3px;
+  margin-left: 8px;
+}
 </style>

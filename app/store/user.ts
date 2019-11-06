@@ -20,6 +20,9 @@ export const mutations: MutationTree<State> = {
   setUser(state: State, payload: User): void {
     state.user = payload
   },
+  setPoint(state: State, payload: number): void {
+    state.user.point = payload
+  }
 }
 
 export const getters: GetterTree<State, State> = {
@@ -33,18 +36,24 @@ export const getters: GetterTree<State, State> = {
 
 export const actions: ActionTree<State, State> = {
   async authStateChange({ commit }, payload) {
-    // commit('setLoading', true);
     const userRef = firestore.collection('users').doc(payload.uid)
     const userSnap = await userRef.get()
-    const userDate = userSnap.data()
+    const userData = userSnap.data()
 
     const user: User = {
-      nickname: userDate.nickname,
-      uid: userDate.uid,
-      point: userDate.point
+      nickname: userData.nickname,
+      uid: userData.uid,
+      point: userData.point
     }
     commit('setUser', user)
-    // commit('setLoading', false);
+  },
+
+  async updateUserPoint({ commit }, payload) {
+    const userRef = firestore.collection('users').doc(payload.uid)
+    const userSnap = await userRef.get()
+    const userData = userSnap.data()
+    const userPonint: number = userData.point
+    commit('setPoint', userPonint)
   },
 
   async signOut({ commit }) {
