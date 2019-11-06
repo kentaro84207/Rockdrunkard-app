@@ -14,7 +14,7 @@
               </v-flex>
             </v-list-item-content>
           </v-list-item>
-          <!-- <v-list-item>
+          <v-list-item>
             <v-list-item-content>
               <v-flex xs6 mb-0>
                 <v-list-item-title>現在のポイント</v-list-item-title>
@@ -23,7 +23,7 @@
                 <v-list-item-title class="text-right">{{ point }}</v-list-item-title>
               </v-flex>
             </v-list-item-content>
-          </v-list-item> -->
+          </v-list-item>
           <v-list-item>
             <v-list-item-content>
               <v-flex xs12 mb-0>
@@ -53,13 +53,13 @@ export default class Setting extends Vue {
     }
   }
 
-  // private get point() {
-  //   try {
-  //     return Math.round(this.$store.state.user.user.point)
-  //   } catch (error) {
-  //     return false
-  //   }
-  // }
+  private get point() {
+    try {
+      return Math.round(this.$store.state.user.user.point)
+    } catch (error) {
+      return false
+    }
+  }
 }
 </script>
 
