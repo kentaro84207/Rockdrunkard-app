@@ -21,19 +21,21 @@ async function fetchPoint(problemRef: any) {
 // user_points、usersコレクションに書き込む
 async function updateUserPoints(uid: string, point: number) {
   const yearMonth = `${year}_${month}`
-  await db
-    .collection('user_points')
-    .doc(uid)
-    .set(
-      {
-        [yearMonth]: point
-      },
-      { merge: true }
-    )
-  await db
-    .collection('users')
-    .doc(uid)
-    .update({ point })
+  if (point !== Infinity) {
+    await db
+      .collection('user_points')
+      .doc(uid)
+      .set(
+        {
+          [yearMonth]: point
+        },
+        { merge: true }
+      )
+    await db
+      .collection('users')
+      .doc(uid)
+      .update({ point })
+  }
 }
 
 // ユーザの総得点を計算
