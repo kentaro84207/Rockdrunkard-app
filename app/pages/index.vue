@@ -32,12 +32,10 @@ import IndexCard from '~/components/IndexCard.vue'
 export default class Top extends Vue {
   images: object[] = [
     {
-      src:
-        'https://firebasestorage.googleapis.com/v0/b/rockdrunkard-app.appspot.com/o/test.jpg?alt=media&token=0efc3c53-0e53-48e2-a6db-357b80f11774'
+      src: '/images/test.jpg'
     },
     {
-      src:
-        'https://firebasestorage.googleapis.com/v0/b/rockdrunkard-app.appspot.com/o/test.jpg?alt=media&token=0efc3c53-0e53-48e2-a6db-357b80f11774'
+      src: '/images/test.jpg'
     }
   ]
 
