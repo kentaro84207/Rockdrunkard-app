@@ -10,9 +10,14 @@
           :ripple="false"
         >
           <v-layout>
-            <v-flex xs10 d-flex align-center pr-0 class="h-5">
+            <v-flex xs7 d-flex align-center pr-0 class="h-5">
               <v-card-title primary-title class="pl-3 py-0 pr-0">
-                <div class="subtitle-1 bold">{{problemNum}}</div>
+                <div class="subtitle-1 bold">{{problemRange}}</div>
+              </v-card-title>
+            </v-flex>
+            <v-flex xs3 d-flex align-center pr-0 class="h-5">
+              <v-card-title primary-title class="pl-3 py-0 pr-0">
+                <div class="subtitle-1 bold">{{ascentsNum}} / {{problemNum}}</div>
               </v-card-title>
             </v-flex>
             <v-flex xs2 d-flex align-center pr-0 class="h-5">
@@ -48,7 +53,15 @@ export default class ProblemCard extends Vue {
     }
   }
 
-  private get problemNum() {
+  private get ascents() {
+    try {
+      return this.$store.state.user.ascents
+    } catch (error) {
+      return false
+    }
+  }
+
+  private get problemRange() {
     const array = this.problems.filter(
       v => v.difficulty === Number(this.difficulty['num'])
     )
@@ -57,6 +70,25 @@ export default class ProblemCard extends Vue {
     const last = nums.slice(-1)[0]
 
     return first && last ? `No.${first} ~ ${last}` : ''
+  }
+
+  private get problemNum() {
+    const array = this.problems.filter(
+      v => v.difficulty === Number(this.difficulty['num'])
+    )
+    const nums = array.map(v => v.num)
+
+    return nums.length
+  }
+
+  private get ascentsNum() {
+    const array = this.problems.filter(
+      v => v.difficulty === Number(this.difficulty['num'])
+    )
+    const nums = array.map(v => v.num)
+    const ascentsArray = this.ascents.filter(x => nums.includes(x))
+
+    return ascentsArray.length
   }
 }
 </script>

@@ -153,9 +153,7 @@ export default class ProblemCard extends Vue {
         ascent_users: firebase.firestore.FieldValue.arrayUnion(this.user.uid)
       })
       batch.set(ascentRef, {
-        pid: problem.pid,
-        year: problem.year,
-        month: problem.month,
+        ...problem,
         problemRef: problemRef,
         created_at: firebase.firestore.FieldValue.serverTimestamp()
       })

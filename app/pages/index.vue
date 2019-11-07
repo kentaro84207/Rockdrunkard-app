@@ -50,6 +50,15 @@ export default class Top extends Vue {
       month: month
     }
     await this.$store.dispatch('problem/getProblems', date)
+    await this.$store.dispatch('user/updateAscents', this.user.uid)
+  }
+
+  private get user() {
+    try {
+      return this.$store.state.user.user
+    } catch (error) {
+      return false
+    }
   }
 
   private get difficultis() {
