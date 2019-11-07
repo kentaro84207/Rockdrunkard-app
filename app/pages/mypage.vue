@@ -17,9 +17,9 @@
           <v-list-item>
             <v-list-item-content>
               <v-flex xs6 mb-0>
-                <v-list-item-title @click="updatePoint">
+                <v-list-item-title>
                   現在のポイント
-                  <v-icon class="icon">autorenew</v-icon>
+                  <v-icon @click="updatePoint" id="rotate" class="icon">autorenew</v-icon>
                 </v-list-item-title>
               </v-flex>
               <v-flex xs6>
@@ -50,6 +50,16 @@ import firestore from '~/plugins/firestore'
   components: {}
 })
 export default class Setting extends Vue {
+  mounted(): void {
+    const icon = document.getElementById('rotate')
+    icon.addEventListener('click', () => {
+      icon.classList.add('-clicked')
+      setTimeout(() => {
+        icon.classList.remove('-clicked')
+      }, 500);
+    })
+  }
+
   private get user() {
     try {
       return this.$store.state.user.user
@@ -77,5 +87,13 @@ export default class Setting extends Vue {
   font-size: 20px;
   margin-bottom: 3px;
   margin-left: 8px;
+}
+
+#rotate {
+  transition: 0s;
+  &.-clicked {
+    transform: rotate(360deg);
+    transition: 0.5s;
+  }
 }
 </style>
