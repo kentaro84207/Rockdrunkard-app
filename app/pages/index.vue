@@ -32,13 +32,13 @@ import IndexCard from '~/components/IndexCard.vue'
 export default class Top extends Vue {
   images: object[] = [
     {
-      src: '/images/session1.png'
+      src: '/images/app1.png'
     },
     {
-      src: '/images/session2.png'
+      src: '/images/app2.png'
     },
     {
-      src: '/images/session3.png'
+      src: '/images/app3.png'
     }
   ]
 
