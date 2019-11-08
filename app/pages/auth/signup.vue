@@ -221,4 +221,9 @@ export default class Signup extends Vue {
 .underline {
   text-decoration: underline;
 }
+.v-text-field__slot {
+  input {
+    padding: 0 1px;
+  }
+}
 </style>

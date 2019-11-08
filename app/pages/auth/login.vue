@@ -121,3 +121,10 @@ export default class login extends Vue {
   // }
 }
 </script>
+<style lang='scss' scoped >
+.v-text-field__slot {
+  input {
+    padding: 0 1px;
+  }
+}
+</style>
