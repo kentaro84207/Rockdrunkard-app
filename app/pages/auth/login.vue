@@ -5,7 +5,8 @@
         <h1 class="display-3 font-weight-black white--text">
           Rock
           <br />Drunkard
-          <br />APP (β)
+          <br />APP
+          <span class="headline fixtop">(β)</span>
         </h1>
       </v-layout>
       <v-col cols="12" sm="6" class="pt-0 pb-1">
@@ -126,5 +127,10 @@ export default class login extends Vue {
   input {
     padding: 0 1px;
   }
+}
+
+.fixtop {
+  position: relative;
+  top: -4px;
 }
 </style>
