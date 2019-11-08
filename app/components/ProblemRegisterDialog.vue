@@ -7,7 +7,7 @@
       <v-flex xs12 md3 mr-3>
         <v-select
           :items="nums"
-          :value="editingProblem.num"
+          :value="isEditing? editingProblem.num : nextProblemNum"
           label="課題番号"
           @input="setValue({target:'num', value:$event})"
         ></v-select>
@@ -102,7 +102,7 @@ export default class ProblemRegisterDialog extends Vue {
   }
 
   private get isEditing() {
-    return this.$store.state.admin.editedPid !== "-1"
+    return this.$store.state.admin.editedPid !== '-1'
   }
 
   private get formTitle() {
@@ -111,6 +111,13 @@ export default class ProblemRegisterDialog extends Vue {
 
   private get btnText() {
     return this.isEditing ? '更新する' : '追加する'
+  }
+
+  private get nextProblemNum() {
+    const problems = this.$store.state.admin.problems
+    const num = problems.length + 1
+    this.setValue({ target: 'num', value: num })
+    return num
   }
 
   setValue(e) {
@@ -132,7 +139,7 @@ export default class ProblemRegisterDialog extends Vue {
       .collection('problems')
       .doc(id)
       .set(problem)
-      .then(()=> {
+      .then(() => {
         this.fetchProblems()
       })
       .catch(function(error) {
