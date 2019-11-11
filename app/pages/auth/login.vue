@@ -9,7 +9,17 @@
           <span class="headline fixtop">(β)</span>
         </h1>
       </v-layout>
-      <v-col cols="12" sm="6" class="pt-0 pb-1">
+      <v-layout>
+        <p class="white--text px-3">
+          「RDセッション」5周年感謝祭に参加いただき、誠にありがとうございました。
+          <br />来年1月をめどに進化させたRDアプリをリリース予定です。
+          <br />（※なお今回登録頂いたユーザアカウント情報はすべてクリアいたしました。）
+          <br />
+          <br />お楽しみ！
+          <br />
+        </p>
+      </v-layout>
+      <!-- <v-col cols="12" sm="6" class="pt-0 pb-1">
         <v-text-field
           solo
           v-model="email"
@@ -65,8 +75,7 @@
           class="font-weight-bold"
           to="/auth/signup"
         >新規登録</v-btn>
-        <!-- <nuxt-link to="/auth/signup">Sign Up</nuxt-link> -->
-      </v-col>
+      </v-col>-->
     </v-container>
   </v-form>
 </template>
